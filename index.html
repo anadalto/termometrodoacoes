@@ -3,741 +3,509 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width,
-                   initial-scale=1.0,
-                   maximum-scale=1.0,
-                   user-scalable=no">
+<meta name="viewport"
+      content="width=device-width,
+               initial-scale=1.0">
 
-    <title>Termômetro de Doação</title>
+<title>Termômetro de Doação</title>
 
 
-    <style>
+<style>
 
-        /* =====================================================
-           CONFIGURAÇÕES GERAIS
-           ===================================================== */
+/* =========================================================
+   CONFIGURAÇÃO GERAL
+   ========================================================= */
 
-        * {
-            box-sizing: border-box;
-        }
+* {
+    box-sizing: border-box;
+}
 
+html,
+body {
 
-        html,
-        body {
+    margin: 0;
+    padding: 0;
 
-            margin: 0;
-            padding: 0;
+    width: 100%;
 
-            width: 100%;
+    background: #f7f3eb;
 
-            background: #f7f3eb;
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 
-            font-family:
-                Arial,
-                Helvetica,
-                sans-serif;
-        }
+}
 
+body {
 
-        body {
-            overflow-x: hidden;
-        }
+    overflow-x: hidden;
 
+}
 
-        /* =====================================================
-           PÁGINA
-           ===================================================== */
 
-        .page {
+/* =========================================================
+   PÁGINA
+   ========================================================= */
 
-            position: relative;
+.page {
 
-            width: 100%;
+    position: relative;
 
-            margin: 0;
-            padding: 0;
+    width: 100%;
 
-            overflow: hidden;
+    margin: 0;
+    padding: 0;
 
-            background: #f7f3eb;
-        }
+    overflow: hidden;
 
+    background: #f7f3eb;
 
-        /* =====================================================
-           ARTE DESKTOP
-           ===================================================== */
+}
 
-        .background {
 
-            position: absolute;
+/* =========================================================
+   IMAGEM DESKTOP
+   ========================================================= */
 
-            top: 0;
-            left: 0;
+.background {
 
-            width: 100%;
-            height: 100%;
+    position: absolute;
 
-            object-fit: fill;
+    left: 0;
+    top: 0;
 
-            z-index: 1;
-        }
+    width: 100%;
+    height: 100%;
 
+    object-fit: fill;
 
-        /* =====================================================
-           ÁREA DO GRÁFICO
-           ===================================================== */
+    z-index: 1;
 
-        .chart-area {
+}
 
-            position: absolute;
 
-            z-index: 20;
+/* =========================================================
+   GRÁFICO
+   ========================================================= */
 
-            display: flex;
+.chart-area {
 
-            align-items: center;
-            justify-content: center;
+    position: absolute;
 
-            text-align: center;
-        }
+    z-index: 10;
 
+    display: flex;
 
-        /* =====================================================
-           GRÁFICO CIRCULAR
-           ===================================================== */
+    align-items: center;
+    justify-content: center;
 
-        .progress-ring {
+}
 
-            position: relative;
 
-            width: 100%;
-            height: 100%;
+/* =========================================================
+   CÍRCULO
+   ========================================================= */
 
-            border-radius: 50%;
+.progress-ring {
 
-            display: flex;
+    position: relative;
 
-            align-items: center;
-            justify-content: center;
+    width: 100%;
+    height: 100%;
 
-            background:
-                conic-gradient(
-                    #005238 0deg,
-                    #005238 var(--progress-angle),
-                    #e5dfd4 var(--progress-angle),
-                    #e5dfd4 360deg
-                );
+    border-radius: 50%;
 
-            filter:
-                drop-shadow(
-                    0 8px 15px
-                    rgba(0,0,0,0.08)
-                );
-        }
+    display: flex;
 
+    align-items: center;
+    justify-content: center;
 
-        /* =====================================================
-           BURACO CENTRAL
-           ===================================================== */
+    background:
 
-        .progress-ring::before {
+        conic-gradient(
 
-            content: "";
+            #005238 0deg,
 
-            position: absolute;
+            #005238 var(--progress-angle),
 
-            width: 76%;
-            height: 76%;
+            #e5dfd4 var(--progress-angle),
 
-            border-radius: 50%;
+            #e5dfd4 360deg
 
-            background: #f7f3eb;
+        );
 
-            z-index: 1;
-        }
+    filter:
+        drop-shadow(
+            0 8px 15px
+            rgba(0,0,0,0.08)
+        );
 
+}
 
-        /* =====================================================
-           CONTEÚDO DO GRÁFICO
-           ===================================================== */
 
-        .progress-content {
+/* =========================================================
+   CENTRO DO GRÁFICO
+   ========================================================= */
 
-            position: absolute;
+.progress-ring::before {
 
-            z-index: 2;
+    content: "";
 
-            width: 70%;
-            height: 70%;
+    position: absolute;
 
-            display: flex;
+    width: 76%;
+    height: 76%;
 
-            flex-direction: column;
+    border-radius: 50%;
 
-            align-items: center;
-            justify-content: center;
+    background: #f7f3eb;
 
-            text-align: center;
+    z-index: 1;
 
-            line-height: 1;
-        }
+}
 
 
-        /* =====================================================
-           PERCENTUAL
-           ===================================================== */
+/* =========================================================
+   CONTEÚDO DO GRÁFICO
+   ========================================================= */
 
-        .percent {
+.progress-content {
 
-            color: #005238;
+    position: absolute;
 
-            font-size: 15%;
+    z-index: 2;
 
-            font-weight: 900;
+    width: 70%;
+    height: 70%;
 
-            line-height: 1;
+    display: flex;
 
-            white-space: nowrap;
+    flex-direction: column;
 
-            letter-spacing: -1px;
-        }
+    align-items: center;
+    justify-content: center;
 
+    text-align: center;
 
-        /* =====================================================
-           TEXTO DA META
-           ===================================================== */
+}
 
-        .percent-label {
 
-            margin-top: 7%;
+/* =========================================================
+   DESKTOP
+   ========================================================= */
 
-            color: #d85b00;
+@media (min-width: 601px) {
 
-            font-size: 5.2%;
 
-            font-weight: 900;
+    /* -----------------------------------------------------
+       PROPORÇÃO DA ARTE DESKTOP
 
-            line-height: 1.1;
+       V5-BASE.png
+       1536 x 1024
+       ----------------------------------------------------- */
 
-            white-space: nowrap;
+    .page {
 
-            text-transform: uppercase;
-        }
+        width: 100%;
 
+        aspect-ratio: 1536 / 1024;
 
-        /* =====================================================
-           =====================================================
-           DESKTOP
-           =====================================================
-           ===================================================== */
+        height: auto;
 
-        @media (min-width: 601px) {
+    }
 
 
-            /* =================================================
-               PROPORÇÃO DA ARTE DESKTOP
-               V5-BASE.png
-               1536 x 1024
-               ================================================= */
+    /* -----------------------------------------------------
+       IMAGEM DESKTOP
+       ----------------------------------------------------- */
 
-            .page {
+    .background {
 
-                width: 100%;
+        display: block;
 
-                aspect-ratio: 1536 / 1024;
+        width: 100%;
+        height: 100%;
 
-                height: auto;
+        object-fit: fill;
 
-                min-height: 0;
+        object-position: center;
 
-                position: relative;
+    }
 
-                overflow: hidden;
-            }
 
+    /* -----------------------------------------------------
+       GRÁFICO DESKTOP
 
-            /* =================================================
-               ARTE DESKTOP
-               ================================================= */
+       ESTA É A POSIÇÃO DA V8.
 
-            .background {
+       NÃO É PARA FICAR NO CENTRO MATEMÁTICO DA TELA.
 
-                display: block;
+       Ele fica centralizado na área clara da arte,
+       à direita da foto.
 
-                position: absolute;
+       ----------------------------------------------------- */
 
-                top: 0;
-                left: 0;
+    .chart-area {
 
-                width: 100%;
-                height: 100%;
+        left: 72%;
 
-                object-fit: fill;
+        top: 52%;
 
-                object-position: center;
+        width: 29vw;
 
-                z-index: 1;
-            }
+        height: 29vw;
 
+        transform:
+            translate(-50%, -50%);
 
-            /* =================================================
-               GRÁFICO DESKTOP — POSIÇÃO V8
-               =================================================
+    }
 
-               Mantemos exatamente a posição que funcionava
-               na V8.
 
-               left: 72%
-               top: 52%
-               width: 29%
+    /* -----------------------------------------------------
+       PERCENTUAL DESKTOP
 
-               ================================================= */
+       IMPORTANTE:
 
-            .chart-area {
+       NÃO USAMOS MAIS:
 
-                left: 72%;
+       font-size: 15%;
 
-                top: 52%;
+       porque isso NÃO significa 15% do gráfico.
 
-                width: 29%;
+       Agora usamos vw + clamp.
 
-                aspect-ratio: 1 / 1;
+       ----------------------------------------------------- */
 
-                height: auto;
+    .percent {
 
-                transform:
-                    translate(-50%, -50%);
+        color: #005238;
 
-                display: flex;
+        font-size:
+            clamp(
+                60px,
+                6vw,
+                105px
+            );
 
-                align-items: center;
-                justify-content: center;
+        font-weight: 900;
 
-                text-align: center;
-            }
+        line-height: 1;
 
+        white-space: nowrap;
 
-            /* =================================================
-               GRÁFICO
-               ================================================= */
+        letter-spacing: -3px;
 
-            .progress-ring {
+    }
 
-                width: 100%;
-                height: 100%;
 
-                border-radius: 50%;
+    /* -----------------------------------------------------
+       "DA NOSSA META"
+       ----------------------------------------------------- */
 
-                display: flex;
+    .percent-label {
 
-                align-items: center;
-                justify-content: center;
+        margin-top: 18px;
 
-                background:
-                    conic-gradient(
-                        #005238 0deg,
-                        #005238 var(--progress-angle),
-                        #e5dfd4 var(--progress-angle),
-                        #e5dfd4 360deg
-                    );
+        color: #d85b00;
 
-                filter:
-                    drop-shadow(
-                        0 8px 15px
-                        rgba(0,0,0,0.08)
-                    );
-            }
+        font-size:
+            clamp(
+                20px,
+                1.65vw,
+                34px
+            );
 
+        font-weight: 900;
 
-            /* =================================================
-               BURACO CENTRAL
-               ================================================= */
+        line-height: 1.1;
 
-            .progress-ring::before {
+        white-space: nowrap;
 
-                content: "";
+        text-transform: uppercase;
 
-                position: absolute;
+    }
 
-                width: 76%;
-                height: 76%;
 
-                border-radius: 50%;
+}
 
-                background: #f7f3eb;
 
-                z-index: 1;
-            }
+/* =========================================================
+   CELULAR
+   ========================================================= */
 
+@media (max-width: 600px) {
 
-            /* =================================================
-               CONTEÚDO DO GRÁFICO
-               ================================================= */
 
-            .progress-content {
+    /* -----------------------------------------------------
+       ARTE VERTICAL
 
-                position: absolute;
+       V5-CELULAR.png
+       1536 x 2048
+       ----------------------------------------------------- */
 
-                z-index: 2;
+    .page {
 
-                width: 70%;
-                height: 70%;
+        width: 100%;
 
-                display: flex;
+        aspect-ratio: 1536 / 2048;
 
-                flex-direction: column;
+        height: auto;
 
-                align-items: center;
-                justify-content: center;
+        background:
 
-                text-align: center;
+            url("V5-CELULAR.png")
 
-                line-height: 1;
-            }
+            center top /
 
+            100% 100%
 
-            /* =================================================
-               PERCENTUAL DESKTOP — V13
-               =================================================
+            no-repeat;
 
-               IMPORTANTE:
+    }
 
-               O gráfico possui 29vw de largura.
 
-               O texto abaixo usa vw, portanto acompanha
-               proporcionalmente o tamanho do gráfico.
+    /* -----------------------------------------------------
+       ESCONDE A IMAGEM DESKTOP
+       ----------------------------------------------------- */
 
-               Assim não acontece mais o problema da V12,
-               onde o 11,8% ficou minúsculo.
+    .background {
 
-               ================================================= */
+        display: none;
 
-            .percent {
+    }
 
-                color: #005238;
 
-                /*
-                   6.1vw acompanha proporcionalmente
-                   o gráfico de 29vw.
+    /* -----------------------------------------------------
+       GRÁFICO MOBILE
+       ----------------------------------------------------- */
 
-                   Limites:
-                   mínimo: 60px
-                   máximo: 110px
-                */
+    .chart-area {
 
-                font-size:
-                    clamp(
-                        60px,
-                        6.1vw,
-                        110px
-                    );
+        left: 50%;
 
-                font-weight: 900;
+        top: 68%;
 
-                line-height: 1;
+        width: 42vw;
 
-                white-space: nowrap;
+        height: 42vw;
 
-                letter-spacing: -2px;
-            }
+        min-width: 150px;
 
+        min-height: 150px;
 
-            /* =================================================
-               LEGENDA DESKTOP — V13
-               ================================================= */
+        max-width: 250px;
 
-            .percent-label {
+        max-height: 250px;
 
-                margin-top: 7%;
+        transform:
+            translate(-50%, -50%);
 
-                color: #d85b00;
+    }
 
-                /*
-                   Também acompanha proporcionalmente
-                   o tamanho do gráfico.
-                */
 
-                font-size:
-                    clamp(
-                        20px,
-                        2.15vw,
-                        40px
-                    );
+    /* -----------------------------------------------------
+       CÍRCULO MOBILE
+       ----------------------------------------------------- */
 
-                font-weight: 900;
+    .progress-ring {
 
-                line-height: 1.1;
+        width: 100%;
+        height: 100%;
 
-                white-space: nowrap;
+    }
 
-                text-transform: uppercase;
-            }
 
-        }
+    /* -----------------------------------------------------
+       CENTRO MOBILE
+       ----------------------------------------------------- */
 
+    .progress-ring::before {
 
-        /* =====================================================
-           =====================================================
-           CELULAR
-           =====================================================
-           ===================================================== */
+        width: 82%;
+        height: 82%;
 
-        @media (max-width: 600px) {
+    }
 
 
-            /* =================================================
-               PÁGINA VERTICAL
-               =================================================
+    /* -----------------------------------------------------
+       PERCENTUAL MOBILE
+       ----------------------------------------------------- */
 
-               V5-CELULAR.png
-               1536 x 2048
+    .percent {
 
-               ================================================= */
+        font-size: 9vw;
 
-            .page {
+        font-weight: 900;
 
-                width: 100%;
+        color: #005238;
 
-                aspect-ratio: 1536 / 2048;
+        line-height: 1;
 
-                height: auto;
+        white-space: nowrap;
 
-                min-height: 0;
+        letter-spacing: -1px;
 
-                position: relative;
+    }
 
-                overflow: hidden;
 
-                background-color: #f7f3eb;
+    /* -----------------------------------------------------
+       LEGENDA MOBILE
+       ----------------------------------------------------- */
 
-                background-image:
-                    url("V5-CELULAR.png");
+    .percent-label {
 
-                background-repeat: no-repeat;
+        margin-top: 4%;
 
-                background-position: center top;
+        font-size: 3.2vw;
 
-                background-size: 100% 100%;
-            }
+        font-weight: 800;
 
+        color: #d85b00;
 
-            /* =================================================
-               ESCONDE A ARTE DESKTOP
-               ================================================= */
+        line-height: 1.1;
 
-            .background {
+        white-space: nowrap;
 
-                display: none;
-            }
+        text-transform: uppercase;
 
+    }
 
-            /* =================================================
-               GRÁFICO MOBILE
-               =================================================
+}
 
-               ESTA CONFIGURAÇÃO ESTAVA FUNCIONANDO.
 
-               NÃO ALTERAR.
+/* =========================================================
+   CELULARES PEQUENOS
+   ========================================================= */
 
-               ================================================= */
+@media (max-width: 380px) {
 
-            .chart-area {
 
-                position: absolute;
+    .chart-area {
 
-                width: 100%;
+        top: 69%;
 
-                height: auto;
+    }
 
-                left: 50%;
 
-                top: 68%;
+    .percent {
 
-                transform:
-                    translate(-50%, -50%);
+        font-size: 9vw;
 
-                display: flex;
+    }
 
-                align-items: center;
-                justify-content: center;
 
-                z-index: 20;
-            }
+    .percent-label {
 
+        font-size: 3.3vw;
 
-            /* =================================================
-               TAMANHO MOBILE
-               ================================================= */
+    }
 
-            .progress-ring {
+}
 
-                width: 42vw;
-
-                height: 42vw;
-
-                max-width: 250px;
-                max-height: 250px;
-
-                min-width: 150px;
-                min-height: 150px;
-
-                border-radius: 50%;
-
-                display: flex;
-
-                align-items: center;
-                justify-content: center;
-
-                background:
-                    conic-gradient(
-                        #005238 0deg,
-                        #005238 var(--progress-angle),
-                        #e5dfd4 var(--progress-angle),
-                        #e5dfd4 360deg
-                    );
-
-                filter:
-                    drop-shadow(
-                        0 8px 15px
-                        rgba(0,0,0,0.08)
-                    );
-            }
-
-
-            /* =================================================
-               BURACO CENTRAL MOBILE
-               ================================================= */
-
-            .progress-ring::before {
-
-                content: "";
-
-                position: absolute;
-
-                width: 82%;
-                height: 82%;
-
-                border-radius: 50%;
-
-                background: #f7f3eb;
-
-                z-index: 1;
-            }
-
-
-            /* =================================================
-               CONTEÚDO MOBILE
-               ================================================= */
-
-            .progress-content {
-
-                position: absolute;
-
-                z-index: 2;
-
-                width: 70%;
-                height: 70%;
-
-                display: flex;
-
-                flex-direction: column;
-
-                align-items: center;
-                justify-content: center;
-
-                text-align: center;
-
-                line-height: 1;
-            }
-
-
-            /* =================================================
-               PERCENTUAL MOBILE
-               ================================================= */
-
-            .percent {
-
-                font-size: 9vw;
-
-                font-weight: 900;
-
-                color: #005238;
-
-                line-height: 1;
-
-                letter-spacing: -1px;
-
-                white-space: nowrap;
-            }
-
-
-            /* =================================================
-               LEGENDA MOBILE
-               ================================================= */
-
-            .percent-label {
-
-                margin-top: 4%;
-
-                font-size: 3.2vw;
-
-                font-weight: 800;
-
-                color: #d85b00;
-
-                line-height: 1.1;
-
-                text-transform: uppercase;
-
-                white-space: nowrap;
-            }
-
-        }
-
-
-        /* =====================================================
-           CELULARES PEQUENOS
-           ===================================================== */
-
-        @media (max-width: 380px) {
-
-
-            .chart-area {
-
-                top: 69%;
-            }
-
-
-            .progress-ring {
-
-                width: 43vw;
-
-                height: 43vw;
-
-                min-width: 145px;
-
-                min-height: 145px;
-            }
-
-
-            .percent {
-
-                font-size: 9vw;
-            }
-
-
-            .percent-label {
-
-                font-size: 3.3vw;
-            }
-
-        }
-
-
-    </style>
+</style>
 
 </head>
 
@@ -745,293 +513,244 @@
 <body>
 
 
+<div class="page">
+
+
     <!-- =====================================================
-         PÁGINA
+         IMAGEM DESKTOP
          ===================================================== -->
 
-    <div class="page">
+    <img
+        class="background"
+        src="V5-BASE.png"
+        alt="Campanha de doação de ração"
+    >
 
 
-        <!-- =================================================
-             ARTE DESKTOP
-             ================================================= -->
+    <!-- =====================================================
+         GRÁFICO DINÂMICO
+         ===================================================== -->
 
-        <img
-            class="background"
-            src="V5-BASE.png"
-            alt="Campanha de doação de ração"
-        >
-
-
-        <!-- =================================================
-             GRÁFICO DINÂMICO
-             ================================================= -->
+    <div
+        class="chart-area"
+        id="chartArea"
+    >
 
         <div
-            class="chart-area"
-            id="chartArea"
+            class="progress-ring"
+            id="progressRing"
         >
 
             <div
-                class="progress-ring"
-                id="progressRing"
+                class="progress-content"
             >
 
                 <div
-                    class="progress-content"
+                    class="percent"
+                    id="percent"
                 >
-
-                    <div
-                        class="percent"
-                        id="percent"
-                    >
-                        11,8%
-                    </div>
+                    11,8%
+                </div>
 
 
-                    <div
-                        class="percent-label"
-                    >
-                        DA NOSSA META
-                    </div>
-
+                <div
+                    class="percent-label"
+                >
+                    DA NOSSA META
                 </div>
 
             </div>
 
         </div>
 
-
     </div>
 
 
-    <!-- =====================================================
-         JAVASCRIPT
-         ===================================================== -->
+</div>
 
-    <script>
 
+<script>
 
-        /* =====================================================
-           DADOS DA CAMPANHA
-           ===================================================== */
+/* =========================================================
+   DADOS DA CAMPANHA
+   ========================================================= */
 
 
-        /*
-           =====================================================
-           ALTERE SOMENTE ESTE NÚMERO
-           =====================================================
+/*
+   ALTERE SOMENTE ESTE NÚMERO.
 
-           Atualmente:
-           118 KG
+   Atualmente temos:
 
-           Quando arrecadar mais, altere somente:
+   118 KG
+*/
 
-           const arrecadado = 118;
+const arrecadado = 118;
 
-           Exemplos:
 
-           200 KG
-           const arrecadado = 200;
+/* =========================================================
+   META
+   ========================================================= */
 
-           350 KG
-           const arrecadado = 350;
+const meta = 1000;
 
-           500 KG
-           const arrecadado = 500;
 
-           =====================================================
-        */
+/* =========================================================
+   CALCULA PERCENTUAL
+   ========================================================= */
 
-        const arrecadado = 118;
+let percentual =
+    (arrecadado / meta) * 100;
 
 
-        /* =====================================================
-           META
-           ===================================================== */
+/* =========================================================
+   LIMITES
+   ========================================================= */
 
-        const meta = 1000;
+if (percentual > 100) {
 
+    percentual = 100;
 
-        /* =====================================================
-           CALCULA O PERCENTUAL
-           ===================================================== */
+}
 
-        let percentual =
-            (arrecadado / meta) * 100;
+if (percentual < 0) {
 
+    percentual = 0;
 
-        /*
-           Não permite ultrapassar 100%
-        */
+}
 
-        if (percentual > 100) {
 
-            percentual = 100;
+/* =========================================================
+   ELEMENTOS
+   ========================================================= */
 
-        }
+const progressRing =
+    document.getElementById(
+        "progressRing"
+    );
 
 
-        /*
-           Não permite valor negativo
-        */
+const percentElement =
+    document.getElementById(
+        "percent"
+    );
 
-        if (percentual < 0) {
 
-            percentual = 0;
+/* =========================================================
+   ANIMAÇÃO
+   ========================================================= */
 
-        }
+const duracao = 1800;
 
+const inicio =
+    performance.now();
 
-        /* =====================================================
-           ELEMENTOS
-           ===================================================== */
 
-        const progressRing =
-            document.getElementById(
-                "progressRing"
-            );
+function animarGrafico(tempoAtual) {
 
 
-        const percentElement =
-            document.getElementById(
-                "percent"
-            );
+    const tempoDecorrido =
+        tempoAtual - inicio;
 
 
-        /* =====================================================
-           ANIMAÇÃO
-           ===================================================== */
+    let progresso =
+        tempoDecorrido / duracao;
 
-        const duracao = 1800;
 
+    if (progresso > 1) {
 
-        const inicio =
-            performance.now();
+        progresso = 1;
 
+    }
 
-        function animarGrafico(tempoAtual) {
 
+    /* ---------------------------------------------
+       Easing suave
+       --------------------------------------------- */
 
-            /*
-               Tempo decorrido
-            */
+    const suavizado =
+        1 -
+        Math.pow(
+            1 - progresso,
+            3
+        );
 
-            const tempoDecorrido =
-                tempoAtual - inicio;
 
+    /* ---------------------------------------------
+       Valor atual
+       --------------------------------------------- */
 
-            /*
-               Percentual da animação
-            */
+    const valorAtual =
+        percentual * suavizado;
 
-            let progressoAnimacao =
-                tempoDecorrido / duracao;
 
+    /* ---------------------------------------------
+       Converte para graus
+       --------------------------------------------- */
 
-            /*
-               Limita entre 0 e 1
-            */
+    const angulo =
+        valorAtual * 3.6;
 
-            if (progressoAnimacao > 1) {
 
-                progressoAnimacao = 1;
+    /* ---------------------------------------------
+       Atualiza gráfico
+       --------------------------------------------- */
 
-            }
+    progressRing.style.setProperty(
 
+        "--progress-angle",
 
-            /*
-               Easing suave
-            */
+        angulo + "deg"
 
-            const suavizado =
-                1 -
-                Math.pow(
-                    1 - progressoAnimacao,
-                    3
-                );
+    );
 
 
-            /*
-               Valor atual
-            */
+    /* ---------------------------------------------
+       Atualiza número
+       --------------------------------------------- */
 
-            const valorAtual =
-                percentual * suavizado;
+    percentElement.textContent =
 
+        valorAtual
+            .toFixed(1)
+            .replace(".", ",")
+        + "%";
 
-            /*
-               Converte percentual
-               em graus.
 
-               100% = 360°
-            */
+    /* ---------------------------------------------
+       Continua animação
+       --------------------------------------------- */
 
-            const angulo =
-                valorAtual * 3.6;
-
-
-            /*
-               Atualiza o círculo
-            */
-
-            progressRing.style.setProperty(
-                "--progress-angle",
-                angulo + "deg"
-            );
-
-
-            /*
-               Atualiza o texto
-            */
-
-            percentElement.textContent =
-                valorAtual
-                    .toFixed(1)
-                    .replace(".", ",")
-                + "%";
-
-
-            /*
-               Continua a animação
-            */
-
-            if (progressoAnimacao < 1) {
-
-                requestAnimationFrame(
-                    animarGrafico
-                );
-
-            }
-
-
-            /*
-               Garante o valor final
-            */
-
-            else {
-
-                percentElement.textContent =
-                    percentual
-                        .toFixed(1)
-                        .replace(".", ",")
-                    + "%";
-
-            }
-
-        }
-
-
-        /* =====================================================
-           INICIA
-           ===================================================== */
+    if (progresso < 1) {
 
         requestAnimationFrame(
             animarGrafico
         );
 
+    }
 
-    </script>
+    else {
+
+        percentElement.textContent =
+
+            percentual
+                .toFixed(1)
+                .replace(".", ",")
+            + "%";
+
+    }
+
+}
+
+
+/* =========================================================
+   INICIA GRÁFICO
+   ========================================================= */
+
+requestAnimationFrame(
+    animarGrafico
+);
+
+</script>
 
 
 </body>
