@@ -43,6 +43,7 @@
 
 
         body {
+
             overflow-x: hidden;
         }
 
@@ -67,7 +68,7 @@
 
 
         /* =====================================================
-           IMAGEM DESKTOP
+           ARTE DESKTOP
            ===================================================== */
 
         .background {
@@ -106,15 +107,15 @@
 
 
         /* =====================================================
-           GRÁFICO
+           GRÁFICO CIRCULAR
            ===================================================== */
 
         .progress-ring {
 
             position: relative;
 
-            width: 320px;
-            height: 320px;
+            width: 100%;
+            height: 100%;
 
             border-radius: 50%;
 
@@ -125,19 +126,22 @@
 
             background:
                 conic-gradient(
-                    #005c3b 0deg,
-                    #005c3b var(--progress-angle),
-                    #e5dfd3 var(--progress-angle),
-                    #e5dfd3 360deg
+                    #005238 0deg,
+                    #005238 var(--progress-angle),
+                    #e5dfd4 var(--progress-angle),
+                    #e5dfd4 360deg
                 );
 
-            box-shadow:
-                0 8px 25px rgba(60, 50, 40, 0.12);
+            filter:
+                drop-shadow(
+                    0 8px 15px
+                    rgba(0,0,0,0.08)
+                );
         }
 
 
         /* =====================================================
-           PARTE INTERNA
+           BURACO CENTRAL
            ===================================================== */
 
         .progress-ring::before {
@@ -146,24 +150,29 @@
 
             position: absolute;
 
-            width: 82%;
-            height: 82%;
+            width: 76%;
+            height: 76%;
 
             border-radius: 50%;
 
             background: #f7f3eb;
+
+            z-index: 1;
         }
 
 
         /* =====================================================
-           CONTEÚDO INTERNO
+           CONTEÚDO DO GRÁFICO
            ===================================================== */
 
         .progress-content {
 
-            position: relative;
+            position: absolute;
 
             z-index: 2;
+
+            width: 70%;
+            height: 70%;
 
             display: flex;
 
@@ -184,15 +193,17 @@
 
         .percent {
 
-            font-size: 70px;
+            color: #005238;
+
+            font-size: 15%;
 
             font-weight: 900;
 
-            color: #005c3b;
-
             line-height: 1;
 
-            letter-spacing: -2px;
+            white-space: nowrap;
+
+            letter-spacing: -1px;
         }
 
 
@@ -202,15 +213,17 @@
 
         .percent-label {
 
-            margin-top: 18px;
+            margin-top: 7%;
 
-            font-size: 24px;
+            color: #d85b00;
 
-            font-weight: 800;
+            font-size: 5.2%;
 
-            color: #d95f00;
+            font-weight: 900;
 
             line-height: 1.1;
+
+            white-space: nowrap;
 
             text-transform: uppercase;
         }
@@ -226,7 +239,11 @@
 
 
             /*
-               A arte desktop possui:
+               =================================================
+               PROPORÇÃO DA SUA ARTE ATUAL
+               =================================================
+
+               V5-BASE.png
                1536 x 1024
             */
 
@@ -247,7 +264,9 @@
 
 
             /*
+               =================================================
                ARTE DESKTOP
+               =================================================
             */
 
             .background {
@@ -272,76 +291,173 @@
 
             /*
                =================================================
-               GRÁFICO DESKTOP
+               GRÁFICO DESKTOP — V8
                =================================================
 
-               Mantemos a posição da versão que funcionou
-               no desktop.
+               POSIÇÃO ORIGINAL DA V8
 
-               O gráfico fica centralizado dentro da área
-               livre da arte.
+               left: 72%
+               top: 52%
+               width: 29%
             */
 
             .chart-area {
 
-                width: 40vw;
-                height: 40vw;
+                left: 72%;
 
-                max-width: 430px;
-                max-height: 430px;
+                top: 52%;
 
-                left: 68%;
+                width: 29%;
 
-                top: 50%;
+                aspect-ratio: 1 / 1;
+
+                height: auto;
 
                 transform:
                     translate(-50%, -50%);
+
+                display: flex;
+
+                align-items: center;
+
+                justify-content: center;
+
+                text-align: center;
             }
 
 
             /*
-               TAMANHO DO GRÁFICO
+               =================================================
+               GRÁFICO
+               =================================================
             */
 
             .progress-ring {
 
-                width: min(28vw, 430px);
+                width: 100%;
+                height: 100%;
 
-                height: min(28vw, 430px);
+                border-radius: 50%;
+
+                display: flex;
+
+                align-items: center;
+                justify-content: center;
+
+                background:
+                    conic-gradient(
+                        #005238 0deg,
+                        #005238 var(--progress-angle),
+                        #e5dfd4 var(--progress-angle),
+                        #e5dfd4 360deg
+                    );
+
+                filter:
+                    drop-shadow(
+                        0 8px 15px
+                        rgba(0,0,0,0.08)
+                    );
             }
 
 
             /*
-               PERCENTUAL
-               Sempre proporcional ao gráfico
+               =================================================
+               BURACO CENTRAL — V8
+               =================================================
+            */
+
+            .progress-ring::before {
+
+                content: "";
+
+                position: absolute;
+
+                width: 76%;
+                height: 76%;
+
+                border-radius: 50%;
+
+                background: #f7f3eb;
+
+                z-index: 1;
+            }
+
+
+            /*
+               =================================================
+               CONTEÚDO — V8
+               =================================================
+            */
+
+            .progress-content {
+
+                position: absolute;
+
+                z-index: 2;
+
+                width: 70%;
+                height: 70%;
+
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: center;
+                justify-content: center;
+
+                text-align: center;
+
+                line-height: 1;
+            }
+
+
+            /*
+               =================================================
+               PERCENTUAL — V8
+               =================================================
+
+               15% do tamanho do gráfico
             */
 
             .percent {
 
-                font-size:
-                    clamp(
-                        55px,
-                        5vw,
-                        82px
-                    );
+                color: #005238;
+
+                font-size: 15%;
+
+                font-weight: 900;
+
+                line-height: 1;
+
+                white-space: nowrap;
+
+                letter-spacing: -1px;
             }
 
 
             /*
-               TEXTO DA META
-               Sempre proporcional ao gráfico
+               =================================================
+               LEGENDA — V8
+               =================================================
+
+               5.2% do tamanho do gráfico
             */
 
             .percent-label {
 
-                margin-top: 4%;
+                margin-top: 7%;
 
-                font-size:
-                    clamp(
-                        18px,
-                        1.7vw,
-                        27px
-                    );
+                color: #d85b00;
+
+                font-size: 5.2%;
+
+                font-weight: 900;
+
+                line-height: 1.1;
+
+                white-space: nowrap;
+
+                text-transform: uppercase;
             }
 
         }
@@ -407,10 +523,10 @@
                GRÁFICO MOBILE
                =================================================
 
-               O espaço vazio da arte vertical fica
-               principalmente abaixo do título.
+               ESTA É A CONFIGURAÇÃO QUE VOCÊ DISSE
+               QUE FICOU BOA.
 
-               Por isso o gráfico é colocado mais para baixo.
+               NÃO MEXER.
             */
 
             .chart-area {
@@ -422,12 +538,6 @@
                 height: auto;
 
                 left: 50%;
-
-                /*
-                   POSIÇÃO VERTICAL DO GRÁFICO
-
-                   68% = mais abaixo na arte
-                */
 
                 top: 68%;
 
@@ -446,13 +556,8 @@
 
             /*
                =================================================
-               TAMANHO DO GRÁFICO MOBILE
+               TAMANHO MOBILE
                =================================================
-
-               O círculo usa a largura da tela.
-
-               Assim ele diminui/aumenta junto com
-               o celular.
             */
 
             .progress-ring {
@@ -476,20 +581,24 @@
 
                 background:
                     conic-gradient(
-                        #005c3b 0deg,
-                        #005c3b var(--progress-angle),
-                        #e5dfd3 var(--progress-angle),
-                        #e5dfd3 360deg
+                        #005238 0deg,
+                        #005238 var(--progress-angle),
+                        #e5dfd4 var(--progress-angle),
+                        #e5dfd4 360deg
                     );
 
-                box-shadow:
-                    0 8px 25px
-                    rgba(60, 50, 40, 0.12);
+                filter:
+                    drop-shadow(
+                        0 8px 15px
+                        rgba(0,0,0,0.08)
+                    );
             }
 
 
             /*
-               PARTE INTERNA
+               =================================================
+               BURACO CENTRAL MOBILE
+               =================================================
             */
 
             .progress-ring::before {
@@ -504,18 +613,25 @@
                 border-radius: 50%;
 
                 background: #f7f3eb;
+
+                z-index: 1;
             }
 
 
             /*
-               CONTEÚDO
+               =================================================
+               CONTEÚDO MOBILE
+               =================================================
             */
 
             .progress-content {
 
-                position: relative;
+                position: absolute;
 
                 z-index: 2;
+
+                width: 70%;
+                height: 70%;
 
                 display: flex;
 
@@ -534,8 +650,6 @@
                =================================================
                PERCENTUAL MOBILE
                =================================================
-
-               Proporcional ao círculo.
             */
 
             .percent {
@@ -544,20 +658,20 @@
 
                 font-weight: 900;
 
-                color: #005c3b;
+                color: #005238;
 
                 line-height: 1;
 
                 letter-spacing: -1px;
+
+                white-space: nowrap;
             }
 
 
             /*
                =================================================
-               TEXTO "DA NOSSA META"
+               LEGENDA MOBILE
                =================================================
-
-               Também acompanha o tamanho do círculo.
             */
 
             .percent-label {
@@ -568,11 +682,13 @@
 
                 font-weight: 800;
 
-                color: #d95f00;
+                color: #d85b00;
 
                 line-height: 1.1;
 
                 text-transform: uppercase;
+
+                white-space: nowrap;
             }
 
         }
@@ -587,10 +703,6 @@
 
             .chart-area {
 
-                /*
-                   Um pouco mais abaixo em telas pequenas
-                */
-
                 top: 69%;
             }
 
@@ -598,9 +710,11 @@
             .progress-ring {
 
                 width: 43vw;
+
                 height: 43vw;
 
                 min-width: 145px;
+
                 min-height: 145px;
             }
 
@@ -706,13 +820,30 @@
 
            Atualmente:
            118 KG
+
+           Quando arrecadar mais, altere somente:
+
+           const arrecadado = 118;
+
+           Exemplo:
+
+           200 KG
+           const arrecadado = 200;
+
+           350 KG
+           const arrecadado = 350;
+
+           500 KG
+           const arrecadado = 500;
         */
 
         const arrecadado = 118;
 
 
         /*
-           META DA CAMPANHA
+           =====================================================
+           META
+           =====================================================
         */
 
         const meta = 1000;
@@ -727,7 +858,7 @@
 
 
         /*
-           Impede ultrapassar 100%
+           Não permite ultrapassar 100%
         */
 
         if (percentual > 100) {
@@ -738,7 +869,7 @@
 
 
         /*
-           Evita valores negativos
+           Não permite valor negativo
         */
 
         if (percentual < 0) {
@@ -749,15 +880,7 @@
 
 
         /* =====================================================
-           CALCULA O ÂNGULO
-           ===================================================== */
-
-        const angulo =
-            percentual * 3.6;
-
-
-        /* =====================================================
-           PEGA O GRÁFICO
+           ELEMENTOS
            ===================================================== */
 
         const progressRing =
@@ -766,34 +889,141 @@
             );
 
 
-        /* =====================================================
-           APLICA O PREENCHIMENTO
-           ===================================================== */
-
-        progressRing.style.setProperty(
-            "--progress-angle",
-            angulo + "deg"
-        );
-
-
-        /* =====================================================
-           ATUALIZA O PERCENTUAL
-           ===================================================== */
-
         const percentElement =
             document.getElementById(
                 "percent"
             );
 
 
-        percentElement.textContent =
-            percentual.toLocaleString(
-                "pt-BR",
-                {
-                    minimumFractionDigits: 1,
-                    maximumFractionDigits: 1
-                }
-            ) + "%";
+        /* =====================================================
+           ANIMAÇÃO
+           ===================================================== */
+
+        const duracao = 1800;
+
+        const inicio =
+            performance.now();
+
+
+        function animarGrafico(tempoAtual) {
+
+
+            /*
+               Tempo decorrido
+            */
+
+            const tempoDecorrido =
+                tempoAtual - inicio;
+
+
+            /*
+               Percentual da animação
+            */
+
+            let progressoAnimacao =
+                tempoDecorrido / duracao;
+
+
+            /*
+               Limita entre 0 e 1
+            */
+
+            if (progressoAnimacao > 1) {
+
+                progressoAnimacao = 1;
+
+            }
+
+
+            /*
+               Easing suave
+            */
+
+            const suavizado =
+                1 -
+                Math.pow(
+                    1 - progressoAnimacao,
+                    3
+                );
+
+
+            /*
+               Valor atual
+            */
+
+            const valorAtual =
+                percentual * suavizado;
+
+
+            /*
+               Converte percentual
+               em graus.
+
+               100% = 360°
+            */
+
+            const angulo =
+                valorAtual * 3.6;
+
+
+            /*
+               Atualiza o círculo
+            */
+
+            progressRing.style.setProperty(
+                "--progress-angle",
+                angulo + "deg"
+            );
+
+
+            /*
+               Atualiza o texto
+            */
+
+            percentElement.textContent =
+                valorAtual
+                    .toFixed(1)
+                    .replace(".", ",")
+                + "%";
+
+
+            /*
+               Continua a animação
+            */
+
+            if (progressoAnimacao < 1) {
+
+                requestAnimationFrame(
+                    animarGrafico
+                );
+
+            }
+
+
+            /*
+               Garante o valor final
+            */
+
+            else {
+
+                percentElement.textContent =
+                    percentual
+                        .toFixed(1)
+                        .replace(".", ",")
+                    + "%";
+
+            }
+
+        }
+
+
+        /* =====================================================
+           INICIA
+           ===================================================== */
+
+        requestAnimationFrame(
+            animarGrafico
+        );
 
 
     </script>
