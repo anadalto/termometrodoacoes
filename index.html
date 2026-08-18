@@ -5,155 +5,137 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
 
 <title>Termômetro de Doação</title>
+
 
 <style>
 
 /* =========================================================
-   CONFIGURAÇÕES GERAIS
+   V8 — TERMÔMETRO DE DOAÇÃO
    ========================================================= */
+
+
+/* ---------------------------------------------------------
+   CONFIGURAÇÕES GERAIS
+   --------------------------------------------------------- */
 
 * {
     box-sizing: border-box;
 }
 
+
 html,
 body {
+
     margin: 0;
     padding: 0;
+
     width: 100%;
     min-height: 100%;
-    background: #f7f3eb;
+
+    background: #f7f2e9;
 }
+
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+
     overflow-x: hidden;
+
+    font-family:
+        Arial,
+        Helvetica,
+        sans-serif;
 }
 
 
-/* =========================================================
-   ÁREA PRINCIPAL
-   ========================================================= */
+/* ---------------------------------------------------------
+   PÁGINA
+   --------------------------------------------------------- */
 
 .pagina {
 
     position: relative;
 
-    width: 100%;
-
-    /*
-       A imagem da campanha foi criada em proporção 16:9.
-       Mantemos a mesma proporção para NÃO ACHATAR a imagem.
-    */
+    width: min(100vw, 1600px);
 
     aspect-ratio: 16 / 9;
-
-    max-width: 1600px;
 
     margin: 0 auto;
 
     overflow: hidden;
 
-    background: #f7f3eb;
+
+    /*
+       IMPORTANTE:
+
+       O arquivo V5-BASE.png precisa estar
+       na mesma pasta deste index.html.
+    */
+
+    background-image: url("V5-BASE.png");
+
+    background-repeat: no-repeat;
+
+    background-position: center center;
+
+    background-size: 100% 100%;
 }
 
 
 /* =========================================================
-   IMAGEM BASE
+   GRÁFICO DINÂMICO
    ========================================================= */
 
-.imagem-base {
+.grafico {
 
     position: absolute;
 
-    inset: 0;
-
-    width: 100%;
-
-    height: 100%;
 
     /*
-       contain mantém a proporção original.
-       NÃO usar width/height independentes com object-fit: fill.
+       POSIÇÃO HORIZONTAL
+
+       O cachorro ocupa a parte esquerda da imagem.
+
+       66% coloca o centro do gráfico
+       na região clara da arte.
     */
 
-    object-fit: cover;
+    left: 66%;
 
-    object-position: center;
-
-    z-index: 1;
-}
-
-
-/* =========================================================
-   ÁREA DO GRÁFICO
-   ========================================================= */
-
-.area-grafico {
-
-    position: absolute;
 
     /*
-       69% coloca o centro do gráfico no centro
-       VISUAL da área clara da imagem.
-    */
+       POSIÇÃO VERTICAL
 
-    left: 69%;
-
-    /*
-       Posicionamento vertical.
+       53% deixa o gráfico centralizado
+       visualmente na área disponível.
     */
 
     top: 53%;
 
-    transform: translate(-50%, -50%);
 
     /*
-       IMPORTANTE:
-       largura e altura são SEMPRE iguais.
-       Isso impede que o círculo vire uma elipse.
+       TAMANHO DO GRÁFICO
     */
 
     width: 30%;
 
     aspect-ratio: 1 / 1;
 
-    z-index: 10;
-
-}
-
-
-/* =========================================================
-   GRÁFICO DONUT
-   ========================================================= */
-
-.donut {
-
-    position: relative;
-
-    width: 100%;
-
-    height: 100%;
-
-    aspect-ratio: 1 / 1;
-
-    border-radius: 50%;
 
     /*
-       A porcentagem será aplicada pelo JavaScript.
+       Faz o próprio centro do gráfico
+       ficar exatamente no ponto definido
+       por left/top.
     */
 
-    background:
-        conic-gradient(
-            #005238 0deg,
-            #005238 var(--graus),
-            #e5dfd3 var(--graus),
-            #e5dfd3 360deg
-        );
+    transform:
+        translate(-50%, -50%);
+
 
     display: flex;
 
@@ -161,24 +143,79 @@ body {
 
     justify-content: center;
 
+
+    z-index: 20;
+}
+
+
+/* ---------------------------------------------------------
+   CÍRCULO DO GRÁFICO
+   --------------------------------------------------------- */
+
+.circulo {
+
+    position: absolute;
+
+    inset: 0;
+
+    border-radius: 50%;
+
+
+    /*
+       O JavaScript controla automaticamente
+       quantos graus serão preenchidos.
+    */
+
+    background:
+        conic-gradient(
+
+            #005238 0deg,
+
+            #005238 var(--progresso),
+
+            #e5dfd3 var(--progresso),
+
+            #e5dfd3 360deg
+        );
+
+
+    box-shadow:
+        0 8px 24px
+        rgba(50, 40, 25, 0.10);
+}
+
+
+/* ---------------------------------------------------------
+   PARTE INTERNA DO CÍRCULO
+   --------------------------------------------------------- */
+
+.circulo::after {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 11%;
+
+    border-radius: 50%;
+
+    background: #f7f2e9;
 }
 
 
 /* =========================================================
-   CENTRO DO DONUT
+   TEXTO DO GRÁFICO
    ========================================================= */
 
-.donut-centro {
+.conteudo-grafico {
 
-    position: absolute;
+    position: relative;
 
-    width: 78%;
+    z-index: 2;
 
-    height: 78%;
+    width: 70%;
 
-    border-radius: 50%;
-
-    background: #f7f3eb;
+    height: 70%;
 
     display: flex;
 
@@ -189,153 +226,76 @@ body {
     justify-content: center;
 
     text-align: center;
-
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    PERCENTUAL
-   ========================================================= */
+   --------------------------------------------------------- */
 
 .percentual {
 
     color: #005238;
 
+
     /*
-       O tamanho cresce junto com a página.
+       O tamanho acompanha o tamanho da tela.
+
+       Assim, se o gráfico aumentar,
+       o número também aumenta.
     */
 
-    font-size: clamp(
-        42px,
-        5vw,
-        90px
-    );
+    font-size:
+        clamp(
+            42px,
+            5.2vw,
+            88px
+        );
+
+
+    line-height: 0.95;
 
     font-weight: 900;
 
-    line-height: 1;
-
     white-space: nowrap;
-
-    margin: 0;
-
 }
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    TEXTO "DA NOSSA META"
-   ========================================================= */
+   --------------------------------------------------------- */
 
-.texto-meta {
+.subtitulo {
+
+    margin-top:
+        clamp(
+            12px,
+            1.2vw,
+            22px
+        );
+
 
     color: #d95f02;
 
-    font-size: clamp(
-        14px,
-        1.45vw,
-        25px
-    );
-
-    font-weight: 800;
-
-    margin-top: 18px;
-
-    white-space: nowrap;
-
-}
-
-
-/* =========================================================
-   INFORMAÇÃO DA META
-   ========================================================= */
-
-.meta {
-
-    position: absolute;
 
     /*
-       Fica abaixo do gráfico.
+       Também fica proporcional
+       ao tamanho do gráfico.
     */
 
-    left: 69%;
+    font-size:
+        clamp(
+            16px,
+            1.55vw,
+            30px
+        );
 
-    top: 88%;
-
-    transform: translate(-50%, -50%);
-
-    display: flex;
-
-    align-items: baseline;
-
-    justify-content: center;
-
-    white-space: nowrap;
-
-    z-index: 12;
-
-}
-
-
-/* =========================================================
-   "NOSSA META"
-   ========================================================= */
-
-.meta-label {
-
-    color: #005238;
-
-    font-size: clamp(
-        22px,
-        2.2vw,
-        38px
-    );
-
-    font-weight: 900;
-
-}
-
-
-/* =========================================================
-   "1.000"
-   ========================================================= */
-
-.meta-numero {
-
-    color: #d95f02;
-
-    font-size: clamp(
-        50px,
-        5vw,
-        88px
-    );
-
-    font-weight: 900;
-
-    margin-left: 10px;
 
     line-height: 1;
 
-}
-
-
-/* =========================================================
-   "KG"
-   ========================================================= */
-
-.meta-kg {
-
-    color: #005238;
-
-    font-size: clamp(
-        22px,
-        2.2vw,
-        38px
-    );
-
     font-weight: 900;
 
-    margin-left: 4px;
-
+    white-space: nowrap;
 }
 
 
@@ -345,52 +305,52 @@ body {
 
 @media (max-width: 900px) {
 
-    .area-grafico {
+    .grafico {
+
+        left: 66%;
+
+        top: 53%;
 
         width: 31%;
-
-        left: 69%;
-
-        top: 52%;
-
     }
 
-    .meta {
 
-        top: 88%;
+    .percentual {
 
-        left: 69%;
-
+        font-size: 5vw;
     }
 
+
+    .subtitulo {
+
+        font-size: 1.7vw;
+    }
 }
 
 
 @media (max-width: 600px) {
 
-    .pagina {
+    .grafico {
 
-        min-width: 900px;
+        left: 66%;
 
-        transform-origin: top left;
+        top: 53%;
 
+        width: 32%;
     }
 
+
+    .percentual {
+
+        font-size: 5.5vw;
+    }
+
+
+    .subtitulo {
+
+        font-size: 1.8vw;
+    }
 }
-
-
-/* =========================================================
-   GARANTIA DE PROPORÇÃO DO GRÁFICO
-   ========================================================= */
-
-.area-grafico,
-.donut,
-.donut-centro {
-
-    aspect-ratio: 1 / 1;
-
-}
-
 
 </style>
 
@@ -400,162 +360,189 @@ body {
 <body>
 
 
-<div class="pagina">
+<!-- =======================================================
+     PÁGINA
+     ======================================================= -->
+
+<main class="pagina">
 
 
-    <!-- =====================================================
-         IMAGEM BASE
-         ===================================================== -->
+    <!-- ===================================================
+         GRÁFICO DINÂMICO
+         =================================================== -->
 
-    <img
-        src="V5-BASE.png"
-        alt="Campanha de doação de ração"
-        class="imagem-base"
+    <section
+        class="grafico"
+        id="grafico"
+        aria-label="Progresso da campanha"
     >
 
 
-    <!-- =====================================================
-         GRÁFICO DINÂMICO
-         ===================================================== -->
-
-    <div class="area-grafico">
+        <!-- CÍRCULO -->
 
         <div
-            class="donut"
-            id="donut"
-        >
+            class="circulo"
+            id="circulo"
+        ></div>
 
-            <div class="donut-centro">
 
-                <div
-                    class="percentual"
-                    id="percentual"
-                >
-                    0%
-                </div>
+        <!-- TEXTOS -->
 
-                <div
-                    class="texto-meta"
-                >
-                    DA NOSSA META
-                </div>
+        <div class="conteudo-grafico">
+
+
+            <div
+                class="percentual"
+                id="percentual"
+            >
+                11,8%
+            </div>
+
+
+            <div class="subtitulo">
+
+                DA NOSSA META
 
             </div>
 
+
         </div>
 
-    </div>
+    </section>
 
 
-    <!-- =====================================================
-         META DA CAMPANHA
-         ===================================================== -->
-
-    <div class="meta">
-
-        <div class="meta-label">
-            NOSSA META
-        </div>
-
-        <div class="meta-numero">
-            1.000
-        </div>
-
-        <div class="meta-kg">
-            KG
-        </div>
-
-    </div>
-
-
-</div>
+</main>
 
 
 <script>
 
+
 /* =========================================================
-   =========================================================
-
-   ÚNICA INFORMAÇÃO QUE VOCÊ PRECISA ALTERAR
-
-   COLOQUE AQUI OS KG JÁ ARRECADADOS.
-
-   Exemplo:
-
-   118 kg  →  118
-
-   250 kg  →  250
-
-   500 kg  →  500
-
-   750 kg  →  750
-
-   1.000 kg → 1000
-
-   =========================================================
+   CONFIGURAÇÃO DA CAMPANHA
    ========================================================= */
 
 
-const kgArrecadados = 118;
+/*
+   ========================================================
+   ALTERE SOMENTE ESTE NÚMERO
+   ========================================================
+
+   Aqui você coloca quantos KG já foram arrecadados.
+
+   Atualmente:
+   118 KG
+
+   Meta:
+   1.000 KG
+   ========================================================
+*/
 
 
-/* =========================================================
-   META
-   ========================================================= */
+const arrecadado = 118;
+
 
 const meta = 1000;
 
 
 /* =========================================================
-   CÁLCULO DA PORCENTAGEM
+   CÁLCULO DO PERCENTUAL
    ========================================================= */
 
+
 let percentual =
-    (kgArrecadados / meta) * 100;
+    (arrecadado / meta) * 100;
 
 
 /*
-   Nunca deixar o gráfico passar de 100%.
+   Impede que o gráfico passe de 100%.
 */
 
-if (percentual > 100) {
-
-    percentual = 100;
-
-}
+percentual =
+    Math.max(
+        0,
+        Math.min(
+            percentual,
+            100
+        )
+    );
 
 
 /* =========================================================
-   CONVERSÃO PARA GRAUS
+   LOCALIZA OS ELEMENTOS
    ========================================================= */
 
+
+const percentualElemento =
+    document.getElementById(
+        "percentual"
+    );
+
+
+const circulo =
+    document.getElementById(
+        "circulo"
+    );
+
+
+/* =========================================================
+   ESCREVE O PERCENTUAL
+   ========================================================= */
+
+
+/*
+   Usa o formato brasileiro.
+
+   Exemplo:
+
+   11.8
+
+   vira
+
+   11,8%
+*/
+
+
+percentualElemento.textContent =
+
+    percentual.toLocaleString(
+        "pt-BR",
+        {
+            minimumFractionDigits: 1,
+            maximumFractionDigits: 1
+        }
+    ) + "%";
+
+
+/* =========================================================
+   CONVERTE % PARA GRAUS
+   ========================================================= */
+
+
+/*
+   100% = 360 graus
+
+   Portanto:
+
+   11,8% = 42,48 graus
+*/
+
+
 const graus =
-    (percentual / 100) * 360;
+    percentual * 3.6;
 
 
 /* =========================================================
    ATUALIZA O GRÁFICO
    ========================================================= */
 
-document
-    .getElementById("donut")
-    .style
-    .setProperty(
-        "--graus",
-        graus + "deg"
-    );
 
+circulo.style.setProperty(
 
-/* =========================================================
-   ATUALIZA O TEXTO
-   ========================================================= */
+    "--progresso",
 
-document
-    .getElementById("percentual")
-    .textContent =
-        percentual
-            .toFixed(1)
-            .replace(".", ",") + "%";
+    graus + "deg"
+
+);
 
 
 </script>
