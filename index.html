@@ -54,28 +54,26 @@ body {
 
 /* =========================================================
    =========================================================
-   DESKTOP — V8 ORIGINAL
+   DESKTOP
+   V8 — NÃO ALTERAR
    =========================================================
    ========================================================= */
 
 
 /* ---------------------------------------------------------
-   PÁGINA
+   PÁGINA DESKTOP
    --------------------------------------------------------- */
 
 .pagina {
+
     position: relative;
 
     /*
-       DESKTOP — AJUSTE V8 CORRIGIDO
+       CORREÇÃO DESKTOP QUE FUNCIONOU.
 
-       A arte continua 16:9,
-       mas agora nunca ultrapassa
-       a altura disponível da janela.
-
-       Isso faz a imagem inteira
-       aparecer na tela sem cortar
-       a parte de baixo.
+       Mantém a arte em 16:9,
+       mas impede que ela fique
+       maior que a altura disponível.
     */
 
     width: min(
@@ -90,7 +88,8 @@ body {
 
     overflow: hidden;
 
-    background-image: url("V5-BASE.png");
+    background-image:
+        url("V5-BASE.png");
 
     background-repeat: no-repeat;
 
@@ -100,56 +99,32 @@ body {
 }
 
 
+
 /* =========================================================
-   GRÁFICO DINÂMICO — V8
+   GRÁFICO DESKTOP
+   V8 — NÃO ALTERAR
    ========================================================= */
 
 .grafico {
 
     position: absolute;
 
-
-    /*
-       POSIÇÃO HORIZONTAL — V8
-
-       66% coloca o centro do gráfico
-       na região clara da arte.
-    */
-
     left: 66%;
 
-
-    /*
-       POSIÇÃO VERTICAL — V8
-    */
-
     top: 53%;
-
-
-    /*
-       TAMANHO — V8
-    */
 
     width: 30%;
 
     aspect-ratio: 1 / 1;
 
-
-    /*
-       Centraliza o próprio gráfico
-       no ponto definido acima.
-    */
-
     transform:
         translate(-50%, -50%);
-
 
     display: flex;
 
     align-items: center;
 
     justify-content: center;
-
 
     z-index: 20;
 
@@ -158,7 +133,7 @@ body {
 
 
 /* ---------------------------------------------------------
-   CÍRCULO DO GRÁFICO
+   CÍRCULO DESKTOP
    --------------------------------------------------------- */
 
 .circulo {
@@ -168,7 +143,6 @@ body {
     inset: 0;
 
     border-radius: 50%;
-
 
     background:
         conic-gradient(
@@ -183,7 +157,6 @@ body {
 
         );
 
-
     box-shadow:
         0 8px 24px
         rgba(50, 40, 25, 0.10);
@@ -193,7 +166,7 @@ body {
 
 
 /* ---------------------------------------------------------
-   PARTE INTERNA DO CÍRCULO
+   FURO DO CÍRCULO DESKTOP
    --------------------------------------------------------- */
 
 .circulo::after {
@@ -213,7 +186,7 @@ body {
 
 
 /* =========================================================
-   TEXTO DO GRÁFICO — V8
+   CONTEÚDO DO GRÁFICO DESKTOP
    ========================================================= */
 
 .conteudo-grafico {
@@ -241,17 +214,12 @@ body {
 
 
 /* ---------------------------------------------------------
-   PERCENTUAL — V8
+   PERCENTUAL DESKTOP
    --------------------------------------------------------- */
 
 .percentual {
 
     color: #005238;
-
-
-    /*
-       Tamanho original da V8.
-    */
 
     font-size:
         clamp(
@@ -259,7 +227,6 @@ body {
             5.2vw,
             88px
         );
-
 
     line-height: 0.95;
 
@@ -272,7 +239,7 @@ body {
 
 
 /* ---------------------------------------------------------
-   TEXTO "DA NOSSA META" — V8
+   SUBTÍTULO DESKTOP
    --------------------------------------------------------- */
 
 .subtitulo {
@@ -284,9 +251,7 @@ body {
             22px
         );
 
-
     color: #d95f02;
-
 
     font-size:
         clamp(
@@ -294,7 +259,6 @@ body {
             1.55vw,
             30px
         );
-
 
     line-height: 1;
 
@@ -308,24 +272,15 @@ body {
 
 /* =========================================================
    =========================================================
-   MOBILE — V13 ORIGINAL
+   MOBILE
+   V13 — PRESERVADO
    =========================================================
    ========================================================= */
 
 
-/*
-   IMPORTANTE:
-
-   A partir daqui é a estrutura mobile
-   que você disse que está funcionando.
-
-   Não estamos usando a .pagina do desktop
-   para o mobile.
-
-   O mobile é uma página independente.
-*/
-
-
+/* ---------------------------------------------------------
+   PÁGINA MOBILE
+   --------------------------------------------------------- */
 
 .mobile-page {
 
@@ -335,7 +290,20 @@ body {
 
     width: 100vw;
 
-    min-height: 100vh;
+    /*
+       IMPORTANTE:
+
+       A arte vertical é 9:16.
+
+       Em vez de usar 100vh,
+       calculamos a altura a partir da largura.
+
+       Assim a proporção da arte não muda.
+    */
+
+    height: calc(100vw * 16 / 9);
+
+    aspect-ratio: 9 / 16;
 
     overflow: hidden;
 
@@ -345,27 +313,51 @@ body {
 
 
 
+/* ---------------------------------------------------------
+   ARTE VERTICAL MOBILE
+   --------------------------------------------------------- */
+
+.mobile-page > img {
+
+    position: absolute;
+
+    inset: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    /*
+       A imagem e a página têm
+       exatamente a mesma proporção.
+
+       Portanto não haverá corte.
+    */
+
+    object-fit: fill;
+
+    display: block;
+
+    z-index: 1;
+
+}
+
+
+
 /* =========================================================
-   GRÁFICO MOBILE — V13
+   GRÁFICO MOBILE
    ========================================================= */
 
 .chart-mobile {
 
     position: absolute;
 
-
-    /*
-       posição independente do desktop
-    */
-
     left: 50%;
 
     top: 43%;
 
-
     transform:
         translate(-50%, -50%);
-
 
     width: 43vw;
 
@@ -399,7 +391,6 @@ body {
 
     border-radius: 50%;
 
-
     background:
         conic-gradient(
 
@@ -413,7 +404,6 @@ body {
 
         );
 
-
     box-shadow:
         0 12px 25px
         rgba(60, 45, 30, 0.10);
@@ -423,7 +413,7 @@ body {
 
 
 /* ---------------------------------------------------------
-   FURO DO CÍRCULO MOBILE
+   FURO MOBILE
    --------------------------------------------------------- */
 
 .chart-mobile .chart-ring::after {
@@ -519,14 +509,20 @@ body {
 
 
 /* =========================================================
-   TABLET / TELAS MENORES — V13
+   =========================================================
+   CONTROLE DESKTOP / MOBILE
+   =========================================================
    ========================================================= */
+
+
+/* ---------------------------------------------------------
+   CELULAR
+   --------------------------------------------------------- */
 
 @media (max-width: 768px) {
 
-
     /*
-       DESLIGA COMPLETAMENTE O DESKTOP
+       DESLIGA DESKTOP
     */
 
     .pagina {
@@ -537,7 +533,7 @@ body {
 
 
     /*
-       LIGA O LAYOUT MOBILE
+       LIGA MOBILE
     */
 
     .mobile-page {
@@ -550,16 +546,14 @@ body {
 
 
 
-/* =========================================================
-   DESKTOP GRANDE — V13
-   ========================================================= */
+/* ---------------------------------------------------------
+   DESKTOP
+   --------------------------------------------------------- */
 
 @media (min-width: 769px) {
 
-
     /*
-       DESKTOP V8
-       permanece ativo
+       LIGA DESKTOP
     */
 
     .pagina {
@@ -570,7 +564,7 @@ body {
 
 
     /*
-       MOBILE DESLIGADO
+       DESLIGA MOBILE
     */
 
     .mobile-page {
@@ -584,11 +578,10 @@ body {
 
 
 /* =========================================================
-   TELAS MUITO PEQUENAS — V13
+   TELAS MUITO PEQUENAS
    ========================================================= */
 
 @media (max-width: 430px) {
-
 
     .chart-mobile {
 
@@ -629,13 +622,7 @@ body {
      DESKTOP
      ======================================================= -->
 
-
 <main class="pagina">
-
-
-    <!-- ===================================================
-         GRÁFICO DINÂMICO — V8
-         =================================================== -->
 
 
     <section
@@ -645,16 +632,11 @@ body {
     >
 
 
-        <!-- CÍRCULO -->
-
         <div
             class="circulo"
             id="circulo"
         ></div>
 
-
-
-        <!-- TEXTOS -->
 
         <div class="conteudo-grafico">
 
@@ -688,7 +670,6 @@ body {
      MOBILE
      ======================================================= -->
 
-
 <div class="mobile-page">
 
 
@@ -696,19 +677,8 @@ body {
          ARTE VERTICAL
          =================================================== -->
 
-
     <img
         src="V5-CELULAR.png"
-
-        style="
-            position:absolute;
-            inset:0;
-            width:100%;
-            height:100%;
-            object-fit:cover;
-            display:block;
-            z-index:1;
-        "
 
         alt="Campanha de doação de ração"
     >
@@ -718,7 +688,6 @@ body {
     <!-- ===================================================
          GRÁFICO MOBILE
          =================================================== -->
-
 
     <div
         class="chart-mobile"
@@ -769,48 +738,49 @@ body {
 /*
    ALTERE SOMENTE ESTE VALOR.
 
-   Atualmente:
+   Exemplo:
 
    118 KG
-
-   Meta:
-
-   1.000 KG
 */
 
-
 const META = 1000;
-
 
 let arrecadado = 118;
 
 
 
 /* =========================================================
-   CÁLCULO
+   ATUALIZA OS DOIS GRÁFICOS
    ========================================================= */
-
 
 function atualizarGrafico() {
 
+
+    /*
+       Calcula percentual
+    */
 
     let percentual =
         (arrecadado / META) * 100;
 
 
     /*
-       Nunca ultrapassar 100%
+       Limita entre 0 e 100
     */
 
     percentual =
-        Math.min(
-            percentual,
-            100
+        Math.max(
+            0,
+            Math.min(
+                percentual,
+                100
+            )
         );
 
 
     /*
-       Conversão para graus
+       Converte percentual
+       para graus do círculo
     */
 
     const graus =
@@ -834,9 +804,8 @@ function atualizarGrafico() {
 
 
     /* =====================================================
-       DESKTOP — V8
+       DESKTOP
        ===================================================== */
-
 
     const circulo =
         document.getElementById(
@@ -873,9 +842,8 @@ function atualizarGrafico() {
 
 
     /* =====================================================
-       MOBILE — V13
+       MOBILE
        ===================================================== */
-
 
     const chartMobile =
         document.getElementById(
@@ -916,7 +884,6 @@ function atualizarGrafico() {
 /* =========================================================
    INICIALIZA
    ========================================================= */
-
 
 atualizarGrafico();
 
