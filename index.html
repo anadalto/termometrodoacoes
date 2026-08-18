@@ -55,7 +55,6 @@ body {
 /* =========================================================
    =========================================================
    DESKTOP
-   V8 — NÃO ALTERAR
    =========================================================
    ========================================================= */
 
@@ -67,14 +66,6 @@ body {
 .pagina {
 
     position: relative;
-
-    /*
-       CORREÇÃO DESKTOP QUE FUNCIONOU.
-
-       Mantém a arte em 16:9,
-       mas impede que ela fique
-       maior que a altura disponível.
-    */
 
     width: min(
         100vw,
@@ -88,8 +79,7 @@ body {
 
     overflow: hidden;
 
-    background-image:
-        url("V5-BASE.png");
+    background-image: url("V5-BASE.png");
 
     background-repeat: no-repeat;
 
@@ -101,8 +91,7 @@ body {
 
 
 /* =========================================================
-   GRÁFICO DESKTOP
-   V8 — NÃO ALTERAR
+   GRÁFICO DINÂMICO — DESKTOP
    ========================================================= */
 
 .grafico {
@@ -166,7 +155,7 @@ body {
 
 
 /* ---------------------------------------------------------
-   FURO DO CÍRCULO DESKTOP
+   PARTE INTERNA
    --------------------------------------------------------- */
 
 .circulo::after {
@@ -186,7 +175,7 @@ body {
 
 
 /* =========================================================
-   CONTEÚDO DO GRÁFICO DESKTOP
+   TEXTO DO GRÁFICO — DESKTOP
    ========================================================= */
 
 .conteudo-grafico {
@@ -273,14 +262,17 @@ body {
 /* =========================================================
    =========================================================
    MOBILE
-   V13 — PRESERVADO
    =========================================================
    ========================================================= */
 
 
-/* ---------------------------------------------------------
-   PÁGINA MOBILE
-   --------------------------------------------------------- */
+/*
+   O DESKTOP NÃO PARTICIPA DO LAYOUT MOBILE.
+
+   No celular usamos uma página vertical
+   independente.
+*/
+
 
 .mobile-page {
 
@@ -292,18 +284,14 @@ body {
 
     /*
        IMPORTANTE:
-
-       A arte vertical é 9:16.
-
-       Em vez de usar 100vh,
-       calculamos a altura a partir da largura.
-
-       Assim a proporção da arte não muda.
+       A arte vertical será tratada como 9:16.
     */
 
-    height: calc(100vw * 16 / 9);
-
     aspect-ratio: 9 / 16;
+
+    height: auto;
+
+    min-height: 0;
 
     overflow: hidden;
 
@@ -313,9 +301,9 @@ body {
 
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    ARTE VERTICAL MOBILE
-   --------------------------------------------------------- */
+   ========================================================= */
 
 .mobile-page > img {
 
@@ -328,10 +316,10 @@ body {
     height: 100%;
 
     /*
-       A imagem e a página têm
-       exatamente a mesma proporção.
+       Não usamos "cover".
 
-       Portanto não haverá corte.
+       A arte precisa ocupar exatamente
+       o quadro vertical inteiro.
     */
 
     object-fit: fill;
@@ -345,19 +333,40 @@ body {
 
 
 /* =========================================================
-   GRÁFICO MOBILE
+   GRÁFICO MOBILE — V14
    ========================================================= */
 
 .chart-mobile {
 
     position: absolute;
 
+    /*
+       CENTRO HORIZONTAL
+    */
+
     left: 50%;
 
-    top: 43%;
+
+    /*
+       POSIÇÃO VERTICAL
+
+       O gráfico fica abaixo do título,
+       no espaço livre central da arte.
+    */
+
+    top: 57%;
+
 
     transform:
         translate(-50%, -50%);
+
+
+    /*
+       TAMANHO DO GRÁFICO
+
+       Mantemos proporcional à largura
+       do celular.
+    */
 
     width: 43vw;
 
@@ -379,9 +388,9 @@ body {
 
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    CÍRCULO MOBILE
-   --------------------------------------------------------- */
+   ========================================================= */
 
 .chart-mobile .chart-ring {
 
@@ -412,9 +421,9 @@ body {
 
 
 
-/* ---------------------------------------------------------
-   FURO MOBILE
-   --------------------------------------------------------- */
+/* =========================================================
+   FURO DO CÍRCULO MOBILE
+   ========================================================= */
 
 .chart-mobile .chart-ring::after {
 
@@ -438,9 +447,9 @@ body {
 
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    CONTEÚDO MOBILE
-   --------------------------------------------------------- */
+   ========================================================= */
 
 .chart-mobile .chart-content {
 
@@ -464,9 +473,9 @@ body {
 
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    PERCENTUAL MOBILE
-   --------------------------------------------------------- */
+   ========================================================= */
 
 .chart-mobile .chart-percent {
 
@@ -486,9 +495,9 @@ body {
 
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    TEXTO MOBILE
-   --------------------------------------------------------- */
+   ========================================================= */
 
 .chart-mobile .chart-label {
 
@@ -509,20 +518,14 @@ body {
 
 
 /* =========================================================
-   =========================================================
-   CONTROLE DESKTOP / MOBILE
-   =========================================================
+   ATIVAÇÃO MOBILE
    ========================================================= */
-
-
-/* ---------------------------------------------------------
-   CELULAR
-   --------------------------------------------------------- */
 
 @media (max-width: 768px) {
 
+
     /*
-       DESLIGA DESKTOP
+       DESKTOP DESLIGADO
     */
 
     .pagina {
@@ -533,7 +536,7 @@ body {
 
 
     /*
-       LIGA MOBILE
+       MOBILE LIGADO
     */
 
     .mobile-page {
@@ -546,15 +549,12 @@ body {
 
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    DESKTOP
-   --------------------------------------------------------- */
+   ========================================================= */
 
 @media (min-width: 769px) {
 
-    /*
-       LIGA DESKTOP
-    */
 
     .pagina {
 
@@ -562,10 +562,6 @@ body {
 
     }
 
-
-    /*
-       DESLIGA MOBILE
-    */
 
     .mobile-page {
 
@@ -578,30 +574,40 @@ body {
 
 
 /* =========================================================
-   TELAS MUITO PEQUENAS
+   CELULARES PEQUENOS
    ========================================================= */
 
 @media (max-width: 430px) {
 
+
     .chart-mobile {
 
-        width: 48vw;
+        /*
+           Mantém o gráfico proporcional.
+        */
 
-        top: 43%;
+        width: 43vw;
+
+        /*
+           Mais abaixo para não encostar
+           no título.
+        */
+
+        top: 57%;
 
     }
 
 
     .chart-mobile .chart-percent {
 
-        font-size: 11vw;
+        font-size: 10vw;
 
     }
 
 
     .chart-mobile .chart-label {
 
-        font-size: 4.2vw;
+        font-size: 4vw;
 
     }
 
@@ -612,6 +618,7 @@ body {
 </style>
 
 </head>
+
 
 
 <body>
@@ -679,7 +686,6 @@ body {
 
     <img
         src="V5-CELULAR.png"
-
         alt="Campanha de doação de ração"
     >
 
@@ -692,7 +698,6 @@ body {
     <div
         class="chart-mobile"
         id="chartMobile"
-        style="--progress: 42.48deg;"
     >
 
 
@@ -735,37 +740,26 @@ body {
    ========================================================= */
 
 
-/*
-   ALTERE SOMENTE ESTE VALOR.
-
-   Exemplo:
-
-   118 KG
-*/
-
 const META = 1000;
+
 
 let arrecadado = 118;
 
 
 
 /* =========================================================
-   ATUALIZA OS DOIS GRÁFICOS
+   ATUALIZA GRÁFICOS
    ========================================================= */
 
 function atualizarGrafico() {
 
-
-    /*
-       Calcula percentual
-    */
 
     let percentual =
         (arrecadado / META) * 100;
 
 
     /*
-       Limita entre 0 e 100
+       Nunca ultrapassar 100%.
     */
 
     percentual =
@@ -780,7 +774,7 @@ function atualizarGrafico() {
 
     /*
        Converte percentual
-       para graus do círculo
+       para graus.
     */
 
     const graus =
@@ -788,7 +782,7 @@ function atualizarGrafico() {
 
 
     /*
-       Formatação brasileira
+       Formatação brasileira.
     */
 
     const percentualTexto =
@@ -806,6 +800,7 @@ function atualizarGrafico() {
     /* =====================================================
        DESKTOP
        ===================================================== */
+
 
     const circulo =
         document.getElementById(
@@ -844,6 +839,7 @@ function atualizarGrafico() {
     /* =====================================================
        MOBILE
        ===================================================== */
+
 
     const chartMobile =
         document.getElementById(
