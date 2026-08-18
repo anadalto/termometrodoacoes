@@ -7,7 +7,7 @@
 
 <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 >
 
 <title>Termômetro de Doação</title>
@@ -16,13 +16,8 @@
 <style>
 
 /* =========================================================
-   V8 — TERMÔMETRO DE DOAÇÃO
-   ========================================================= */
-
-
-/* ---------------------------------------------------------
    CONFIGURAÇÕES GERAIS
-   --------------------------------------------------------- */
+   ========================================================= */
 
 * {
     box-sizing: border-box;
@@ -53,9 +48,10 @@ body {
 }
 
 
-/* ---------------------------------------------------------
-   PÁGINA
-   --------------------------------------------------------- */
+/* =========================================================
+   V9 — DESKTOP
+   Mantém a versão que aprovamos.
+   ========================================================= */
 
 .pagina {
 
@@ -73,8 +69,8 @@ body {
     /*
        IMPORTANTE:
 
-       O arquivo V5-BASE.png precisa estar
-       na mesma pasta deste index.html.
+       V5-BASE.png precisa estar na mesma
+       pasta do index.html.
     */
 
     background-image: url("V5-BASE.png");
@@ -88,38 +84,31 @@ body {
 
 
 /* =========================================================
-   GRÁFICO DINÂMICO
+   GRÁFICO
    ========================================================= */
 
 .grafico {
 
     position: absolute;
 
-
     /*
-       POSIÇÃO HORIZONTAL
-
-       O cachorro ocupa a parte esquerda da imagem.
-
-       66% coloca o centro do gráfico
-       na região clara da arte.
+       Posição horizontal.
+       O cachorro está à esquerda,
+       então o gráfico fica na área clara.
     */
 
     left: 66%;
 
 
     /*
-       POSIÇÃO VERTICAL
-
-       53% deixa o gráfico centralizado
-       visualmente na área disponível.
+       Posição vertical.
     */
 
     top: 53%;
 
 
     /*
-       TAMANHO DO GRÁFICO
+       Tamanho do gráfico.
     */
 
     width: 30%;
@@ -128,9 +117,8 @@ body {
 
 
     /*
-       Faz o próprio centro do gráfico
-       ficar exatamente no ponto definido
-       por left/top.
+       Centraliza o próprio gráfico
+       no ponto definido acima.
     */
 
     transform:
@@ -148,9 +136,9 @@ body {
 }
 
 
-/* ---------------------------------------------------------
-   CÍRCULO DO GRÁFICO
-   --------------------------------------------------------- */
+/* =========================================================
+   CÍRCULO
+   ========================================================= */
 
 .circulo {
 
@@ -162,8 +150,8 @@ body {
 
 
     /*
-       O JavaScript controla automaticamente
-       quantos graus serão preenchidos.
+       O JavaScript controla
+       o percentual preenchido.
     */
 
     background:
@@ -185,9 +173,9 @@ body {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    PARTE INTERNA DO CÍRCULO
-   --------------------------------------------------------- */
+   ========================================================= */
 
 .circulo::after {
 
@@ -204,7 +192,7 @@ body {
 
 
 /* =========================================================
-   TEXTO DO GRÁFICO
+   CONTEÚDO DO GRÁFICO
    ========================================================= */
 
 .conteudo-grafico {
@@ -229,9 +217,9 @@ body {
 }
 
 
-/* ---------------------------------------------------------
+/* =========================================================
    PERCENTUAL
-   --------------------------------------------------------- */
+   ========================================================= */
 
 .percentual {
 
@@ -239,10 +227,7 @@ body {
 
 
     /*
-       O tamanho acompanha o tamanho da tela.
-
-       Assim, se o gráfico aumentar,
-       o número também aumenta.
+       O tamanho acompanha a tela.
     */
 
     font-size:
@@ -261,9 +246,9 @@ body {
 }
 
 
-/* ---------------------------------------------------------
-   TEXTO "DA NOSSA META"
-   --------------------------------------------------------- */
+/* =========================================================
+   "DA NOSSA META"
+   ========================================================= */
 
 .subtitulo {
 
@@ -277,11 +262,6 @@ body {
 
     color: #d95f02;
 
-
-    /*
-       Também fica proporcional
-       ao tamanho do gráfico.
-    */
 
     font-size:
         clamp(
@@ -300,10 +280,10 @@ body {
 
 
 /* =========================================================
-   RESPONSIVIDADE
+   TABLET
    ========================================================= */
 
-@media (max-width: 900px) {
+@media (max-width: 900px) and (min-width: 601px) {
 
     .grafico {
 
@@ -328,7 +308,99 @@ body {
 }
 
 
+/* =========================================================
+   CELULAR
+   ========================================================= */
+
 @media (max-width: 600px) {
+
+    html,
+    body {
+
+        width: 100%;
+
+        min-height: 100%;
+
+        background: #f7f2e9;
+    }
+
+
+    body {
+
+        overflow-x: hidden;
+
+        overflow-y: auto;
+    }
+
+
+    .pagina {
+
+        width: 100vw;
+
+
+        /*
+           Mantemos a proporção 16:9.
+
+           Isso evita que o cachorro
+           fique achatado.
+        */
+
+        aspect-ratio: 16 / 9;
+
+        min-height: 0;
+
+
+        background-size: 100% 100%;
+
+        background-position: center center;
+    }
+
+
+    /*
+       Gráfico um pouco maior no celular
+       para continuar fácil de enxergar.
+    */
+
+    .grafico {
+
+        left: 66%;
+
+        top: 53%;
+
+        width: 31%;
+
+
+        transform:
+            translate(-50%, -50%);
+    }
+
+
+    /*
+       Texto do gráfico.
+    */
+
+    .percentual {
+
+        font-size: 6vw;
+
+        line-height: 0.95;
+    }
+
+
+    .subtitulo {
+
+        margin-top: 1.4vw;
+
+        font-size: 1.9vw;
+    }
+}
+
+
+/* =========================================================
+   CELULARES MUITO PEQUENOS
+   ========================================================= */
+
+@media (max-width: 380px) {
 
     .grafico {
 
@@ -342,13 +414,13 @@ body {
 
     .percentual {
 
-        font-size: 5.5vw;
+        font-size: 6.3vw;
     }
 
 
     .subtitulo {
 
-        font-size: 1.8vw;
+        font-size: 2vw;
     }
 }
 
@@ -386,7 +458,7 @@ body {
         ></div>
 
 
-        <!-- TEXTOS -->
+        <!-- TEXTO DO GRÁFICO -->
 
         <div class="conteudo-grafico">
 
@@ -416,26 +488,22 @@ body {
 
 <script>
 
-
 /* =========================================================
-   CONFIGURAÇÃO DA CAMPANHA
+   ATUALIZAÇÃO DA CAMPANHA
+   =========================================================
+
+   MUDE SOMENTE ESTE NÚMERO.
+
+   Exemplo:
+
+   118 = 118 kg arrecadados
+
+   250 = 250 kg arrecadados
+
+   500 = 500 kg arrecadados
+
+   1000 = meta atingida
    ========================================================= */
-
-
-/*
-   ========================================================
-   ALTERE SOMENTE ESTE NÚMERO
-   ========================================================
-
-   Aqui você coloca quantos KG já foram arrecadados.
-
-   Atualmente:
-   118 KG
-
-   Meta:
-   1.000 KG
-   ========================================================
-*/
 
 
 const arrecadado = 118;
@@ -448,13 +516,12 @@ const meta = 1000;
    CÁLCULO DO PERCENTUAL
    ========================================================= */
 
-
 let percentual =
     (arrecadado / meta) * 100;
 
 
 /*
-   Impede que o gráfico passe de 100%.
+   Impede que o gráfico ultrapasse 100%.
 */
 
 percentual =
@@ -471,7 +538,6 @@ percentual =
    LOCALIZA OS ELEMENTOS
    ========================================================= */
 
-
 const percentualElemento =
     document.getElementById(
         "percentual"
@@ -485,22 +551,17 @@ const circulo =
 
 
 /* =========================================================
-   ESCREVE O PERCENTUAL
-   ========================================================= */
-
-
-/*
-   Usa o formato brasileiro.
+   MOSTRA O PERCENTUAL
+   =========================================================
 
    Exemplo:
 
    11.8
 
-   vira
+   vira:
 
    11,8%
-*/
-
+   */
 
 percentualElemento.textContent =
 
@@ -514,26 +575,18 @@ percentualElemento.textContent =
 
 
 /* =========================================================
-   CONVERTE % PARA GRAUS
-   ========================================================= */
+   PREENCHIMENTO DO CÍRCULO
+   =========================================================
 
-
-/*
    100% = 360 graus
 
    Portanto:
 
    11,8% = 42,48 graus
-*/
-
+   */
 
 const graus =
     percentual * 3.6;
-
-
-/* =========================================================
-   ATUALIZA O GRÁFICO
-   ========================================================= */
 
 
 circulo.style.setProperty(
@@ -543,7 +596,6 @@ circulo.style.setProperty(
     graus + "deg"
 
 );
-
 
 </script>
 
