@@ -64,10 +64,25 @@ body {
    --------------------------------------------------------- */
 
 .pagina {
-
     position: relative;
 
-    width: min(100vw, 1600px);
+    /*
+       DESKTOP — AJUSTE V8 CORRIGIDO
+
+       A arte continua 16:9,
+       mas agora nunca ultrapassa
+       a altura disponível da janela.
+
+       Isso faz a imagem inteira
+       aparecer na tela sem cortar
+       a parte de baixo.
+    */
+
+    width: min(
+        100vw,
+        1600px,
+        calc(100vh * 16 / 9)
+    );
 
     aspect-ratio: 16 / 9;
 
@@ -75,23 +90,13 @@ body {
 
     overflow: hidden;
 
-
-    /*
-       IMPORTANTE:
-
-       A imagem ocupa exatamente a área
-       inteira do painel 16:9.
-    */
-
-    background-image:
-        url("V5-BASE.png");
+    background-image: url("V5-BASE.png");
 
     background-repeat: no-repeat;
 
     background-position: center center;
 
     background-size: 100% 100%;
-
 }
 
 
