@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Termômetro de Doação - Pets</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #f7f3ed;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #4a4038;
+    }
+
+    .painel {
+        width: 92%;
+        max-width: 1500px;
+        text-align: center;
+        padding: 50px 60px;
+    }
+
+    .patinhas {
+        font-size: 42px;
+        margin-bottom: 10px;
+    }
+
+    .titulo {
+        font-size: clamp(38px, 5vw, 72px);
+        font-weight: 800;
+        letter-spacing: 1px;
+        margin: 0;
+        color: #5a493d;
+    }
+
+    .subtitulo {
+        font-size: clamp(20px, 2.2vw, 32px);
+        margin-top: 12px;
+        color: #806d5f;
+    }
+
+    .numero {
+        font-size: clamp(80px, 13vw, 190px);
+        line-height: 1;
+        font-weight: 900;
+        margin: 45px 0 5px;
+        color: #6f8f72;
+    }
+
+    .de {
+        font-size: clamp(24px, 3vw, 42px);
+        font-weight: 600;
+        color: #806d5f;
+        margin-bottom: 35px;
+    }
+
+    .barra-fundo {
+        width: 100%;
+        height: 70px;
+        background: #ddd4c8;
+        border-radius: 50px;
+        overflow: hidden;
+        box-shadow: inset 0 3px 8px rgba(0,0,0,0.08);
+    }
+
+    .barra {
+        height: 100%;
+        width: 0%;
+        background: #8eaa8c;
+        border-radius: 50px;
+        transition: width 1.5s ease;
+    }
+
+    .percentual {
+        font-size: clamp(28px, 4vw, 55px);
+        font-weight: 800;
+        margin-top: 22px;
+        color: #6f8f72;
+    }
+
+    .faltam {
+        font-size: clamp(22px, 2.5vw, 36px);
+        margin-top: 15px;
+        color: #806d5f;
+    }
+
+    .meta {
+        margin-top: 50px;
+        font-size: clamp(22px, 2.5vw, 34px);
+        font-weight: 700;
+    }
+
+    .data {
+        margin-top: 12px;
+        font-size: clamp(18px, 2vw, 28px);
+        color: #958579;
+    }
+
+    .rodape {
+        margin-top: 45px;
+        font-size: clamp(17px, 1.8vw, 25px);
+        color: #958579;
+    }
+
+    .destaque {
+        font-weight: 800;
+        color: #6f8f72;
+    }
+
+    @media (max-width: 800px) {
+        .painel {
+            padding: 30px 25px;
+        }
+
+        .barra-fundo {
+            height: 45px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="painel">
+
+    <div class="patinhas">🐾 🐶 🐱 🐾</div>
+
+    <h1 class="titulo">TERMÔMETRO DE DOAÇÃO</h1>
+
+    <div class="subtitulo">
+        Nossa campanha de arrecadação de ração
+    </div>
+
+    <div class="numero" id="kg">0 KG</div>
+
+    <div class="de">
+        de 1.000 KG
+    </div>
+
+    <div class="barra-fundo">
+        <div class="barra" id="barra"></div>
+    </div>
+
+    <div class="percentual" id="percentual">
+        0%
+    </div>
+
+    <div class="faltam" id="faltam">
+        Faltam 1.000 KG para chegarmos à meta!
+    </div>
+
+    <div class="meta">
+        🎯 META: 1.000 KG DE RAÇÃO
+    </div>
+
+    <div class="data">
+        📅 Campanha até 31/08/2026
+    </div>
+
+    <div class="rodape">
+        Cada quilo faz a diferença. 💚
+    </div>
+
+</div>
+
+<script>
+
+    /* ==================================================
+       ATUALIZE APENAS ESTE NÚMERO
+       Coloque aqui os KG já contabilizados.
+       ================================================== */
+
+    const kgArrecadados = 118;
+
+    /* ==================================================
+       NÃO PRECISA ALTERAR NADA ABAIXO DESTA LINHA
+       ================================================== */
+
+    const meta = 1000;
+
+    let percentual = (kgArrecadados / meta) * 100;
+
+    if (percentual > 100) {
+        percentual = 100;
+    }
+
+    const faltam = Math.max(meta - kgArrecadados, 0);
+
+    document.getElementById("kg").textContent =
+        kgArrecadados.toLocaleString("pt-BR") + " KG";
+
+    document.getElementById("barra").style.width =
+        percentual + "%";
+
+    document.getElementById("percentual").textContent =
+        percentual.toFixed(1).replace(".", ",") + "%";
+
+    if (faltam > 0) {
+        document.getElementById("faltam").textContent =
+            "Faltam " + faltam.toLocaleString("pt-BR") +
+            " KG para chegarmos à meta!";
+    } else {
+        document.getElementById("faltam").textContent =
+            "🎉 META DE 1.000 KG ATINGIDA! 🎉";
+    }
+
+</script>
+
+</body>
+</html>
