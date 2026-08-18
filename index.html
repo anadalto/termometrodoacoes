@@ -3,459 +3,598 @@
 
 <head>
 
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
 
-<meta name="viewport"
-      content="width=device-width,
-               initial-scale=1.0,
-               maximum-scale=1.0,
-               user-scalable=no">
+    <meta name="viewport"
+          content="width=device-width,
+                   initial-scale=1.0,
+                   maximum-scale=1.0,
+                   user-scalable=no">
 
-<title>Termômetro de Doação</title>
+    <title>Termômetro de Doação</title>
 
 
-<style>
+    <style>
 
-/* =========================================================
-   CONFIGURAÇÕES GERAIS
-   ========================================================= */
+        /* =====================================================
+           CONFIGURAÇÕES GERAIS
+           ===================================================== */
 
-* {
-    box-sizing: border-box;
-}
+        * {
+            box-sizing: border-box;
+        }
 
-html,
-body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
-    background: #f7f3eb;
-    font-family: Arial, Helvetica, sans-serif;
-}
 
+        html,
+        body {
 
-/* =========================================================
-   ÁREA PRINCIPAL
-   ========================================================= */
+            margin: 0;
+            padding: 0;
 
-.page {
-    position: relative;
+            width: 100%;
 
-    width: 100%;
-    min-height: 100vh;
+            background: #f7f3eb;
 
-    overflow: hidden;
+            font-family:
+                Arial,
+                Helvetica,
+                sans-serif;
+        }
 
-    background-color: #f7f3eb;
 
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-}
+        body {
 
+            overflow-x: hidden;
+        }
 
-/* =========================================================
-   IMAGEM DE FUNDO
-   ========================================================= */
 
-.background {
-    position: absolute;
+        /* =====================================================
+           PÁGINA
+           ===================================================== */
 
-    inset: 0;
+        .page {
 
-    width: 100%;
-    height: 100%;
+            position: relative;
 
-    object-fit: contain;
+            width: 100%;
 
-    object-position: center center;
+            margin: 0;
+            padding: 0;
 
-    z-index: 1;
-}
+            overflow: hidden;
 
+            background: #f7f3eb;
+        }
 
-/* =========================================================
-   ÁREA DO GRÁFICO
-   ========================================================= */
 
-.chart-area {
+        /* =====================================================
+           IMAGEM DE FUNDO DESKTOP
+           ===================================================== */
 
-    position: absolute;
+        .background {
 
-    z-index: 10;
+            position: absolute;
 
-    display: flex;
+            top: 0;
+            left: 0;
 
-    flex-direction: column;
+            width: 100%;
+            height: 100%;
 
-    align-items: center;
+            object-fit: fill;
 
-    justify-content: center;
+            z-index: 1;
+        }
 
-    text-align: center;
-}
 
+        /* =====================================================
+           ÁREA DO GRÁFICO
+           ===================================================== */
 
-/* =========================================================
-   GRÁFICO CIRCULAR
-   ========================================================= */
+        .chart-area {
 
-.progress-ring {
+            position: absolute;
 
-    position: relative;
+            z-index: 20;
 
-    width: 320px;
-    height: 320px;
+            display: flex;
 
-    border-radius: 50%;
+            align-items: center;
+            justify-content: center;
 
-    display: flex;
+            text-align: center;
+        }
 
-    align-items: center;
-    justify-content: center;
 
-    background:
-        conic-gradient(
-            #005c3b 0deg,
-            #005c3b var(--progress-angle),
-            #e5dfd3 var(--progress-angle),
-            #e5dfd3 360deg
-        );
+        /* =====================================================
+           GRÁFICO CIRCULAR
+           ===================================================== */
 
-    box-shadow:
-        0 8px 25px rgba(60, 50, 40, 0.12);
-}
+        .progress-ring {
 
+            position: relative;
 
-/* =========================================================
-   PARTE INTERNA DO GRÁFICO
-   ========================================================= */
+            width: 320px;
+            height: 320px;
 
-.progress-ring::before {
+            border-radius: 50%;
 
-    content: "";
+            display: flex;
 
-    position: absolute;
+            align-items: center;
+            justify-content: center;
 
-    width: 82%;
-    height: 82%;
+            background:
+                conic-gradient(
+                    #005c3b 0deg,
+                    #005c3b var(--progress-angle),
+                    #e5dfd3 var(--progress-angle),
+                    #e5dfd3 360deg
+                );
 
-    border-radius: 50%;
+            box-shadow:
+                0 8px 25px rgba(60, 50, 40, 0.12);
+        }
 
-    background: #f7f3eb;
 
-}
+        /* =====================================================
+           PARTE INTERNA DO GRÁFICO
+           ===================================================== */
 
+        .progress-ring::before {
 
-/* =========================================================
-   TEXTO DENTRO DO GRÁFICO
-   ========================================================= */
+            content: "";
 
-.progress-content {
+            position: absolute;
 
-    position: relative;
+            width: 82%;
+            height: 82%;
 
-    z-index: 2;
+            border-radius: 50%;
 
-    display: flex;
+            background: #f7f3eb;
+        }
 
-    flex-direction: column;
 
-    align-items: center;
+        /* =====================================================
+           CONTEÚDO DO GRÁFICO
+           ===================================================== */
 
-    justify-content: center;
+        .progress-content {
 
-    line-height: 1;
-}
+            position: relative;
 
+            z-index: 2;
 
-/* =========================================================
-   PERCENTUAL
-   ========================================================= */
+            display: flex;
 
-.percent {
+            flex-direction: column;
 
-    font-size: 70px;
+            align-items: center;
+            justify-content: center;
 
-    font-weight: 900;
+            text-align: center;
 
-    color: #005c3b;
+            line-height: 1;
+        }
 
-    line-height: 1;
 
-    letter-spacing: -2px;
-}
+        /* =====================================================
+           PERCENTUAL
+           ===================================================== */
 
+        .percent {
 
-/* =========================================================
-   TEXTO DA META
-   ========================================================= */
+            font-size: 70px;
 
-.percent-label {
+            font-weight: 900;
 
-    margin-top: 18px;
+            color: #005c3b;
 
-    font-size: 24px;
+            line-height: 1;
 
-    font-weight: 800;
+            letter-spacing: -2px;
+        }
 
-    color: #d95f00;
 
-    text-transform: uppercase;
+        /* =====================================================
+           TEXTO DA META
+           ===================================================== */
 
-    line-height: 1.1;
-}
+        .percent-label {
 
+            margin-top: 18px;
 
-/* =========================================================
-   DESKTOP
-   ========================================================= */
+            font-size: 24px;
 
-@media (min-width: 601px) {
+            font-weight: 800;
 
-    .page {
+            color: #d95f00;
 
-        aspect-ratio: 1536 / 1024;
+            line-height: 1.1;
 
-        min-height: 100vh;
-    }
+            text-transform: uppercase;
+        }
 
 
-    .background {
+        /* =====================================================
+           =====================================================
+           DESKTOP
+           =====================================================
+           ===================================================== */
 
-        width: 100%;
-        height: 100%;
+        @media (min-width: 601px) {
 
-        object-fit: contain;
-    }
 
+            /*
+               A página mantém a proporção da arte desktop.
 
-    /*
-       GRÁFICO NO DESKTOP
+               V5-BASE.png = 1536 x 1024
+            */
 
-       Centro da área direita da arte.
-    */
+            .page {
 
-    .chart-area {
+                width: 100%;
 
-        width: 40vw;
+                aspect-ratio: 1536 / 1024;
 
-        height: 40vw;
+                height: auto;
 
-        max-width: 430px;
-        max-height: 430px;
+                min-height: 0;
 
-        left: 68%;
+                position: relative;
 
-        top: 50%;
+                overflow: hidden;
+            }
 
-        transform:
-            translate(-50%, -50%);
-    }
 
+            /*
+               Mostra a arte desktop
+            */
 
-    .progress-ring {
+            .background {
 
-        width: min(28vw, 430px);
+                display: block;
 
-        height: min(28vw, 430px);
-    }
+                position: absolute;
 
+                top: 0;
+                left: 0;
 
-    .percent {
+                width: 100%;
+                height: 100%;
 
-        font-size: clamp(
-            55px,
-            5vw,
-            82px
-        );
-    }
+                object-fit: fill;
 
+                object-position: center;
 
-    .percent-label {
+                z-index: 1;
+            }
 
-        font-size: clamp(
-            18px,
-            1.7vw,
-            27px
-        );
-    }
 
-}
+            /*
+               GRÁFICO DESKTOP
 
+               Mantemos a posição que já estava
+               funcionando na versão aprovada.
+            */
 
-/* =========================================================
-   CELULAR
-   ========================================================= */
+            .chart-area {
 
-@media (max-width: 600px) {
+                width: 40vw;
+                height: 40vw;
 
-    .page {
+                max-width: 430px;
+                max-height: 430px;
 
-        width: 100%;
+                left: 68%;
 
-        /*
-           Proporção da imagem V5-CELULAR
-           1536 x 2048 = 3:4
-        */
+                top: 50%;
 
-        aspect-ratio: 3 / 4;
+                transform:
+                    translate(-50%, -50%);
+            }
 
-        min-height: auto;
 
-        height: auto;
+            /*
+               TAMANHO DO GRÁFICO DESKTOP
+            */
 
-        background-image:
-            url("V5-CELULAR.png");
+            .progress-ring {
 
-        background-repeat: no-repeat;
+                width: min(28vw, 430px);
 
-        background-position: center top;
+                height: min(28vw, 430px);
+            }
 
-        background-size: 100% 100%;
-    }
 
+            /*
+               PERCENTUAL DESKTOP
+            */
 
-    /*
-       ESCONDE A IMAGEM DESKTOP
-    */
+            .percent {
 
-    .background {
+                font-size:
+                    clamp(
+                        55px,
+                        5vw,
+                        82px
+                    );
+            }
 
-        display: none;
-    }
 
+            /*
+               TEXTO DA META DESKTOP
+            */
 
-    /*
-       ÁREA DO GRÁFICO
+            .percent-label {
 
-       O gráfico fica exatamente na região
-       vazia entre o título e a meta.
-    */
+                font-size:
+                    clamp(
+                        18px,
+                        1.7vw,
+                        27px
+                    );
+            }
 
-    .chart-area {
+        }
 
-        width: 100%;
 
-        height: auto;
+        /* =====================================================
+           =====================================================
+           CELULAR
+           =====================================================
+           ===================================================== */
 
-        left: 50%;
+        @media (max-width: 600px) {
 
-        /*
-           POSIÇÃO VERTICAL DO GRÁFICO
 
-           43% coloca o centro do gráfico
-           aproximadamente no meio da área vazia.
-        */
+            /*
+               A página passa a ter a proporção
+               EXCLUSIVA da arte vertical.
 
-        top: 45%;
+               V5-CELULAR.png = 1536 x 2048
+            */
 
-        transform:
-            translate(-50%, -50%);
-    }
+            .page {
 
+                width: 100%;
 
-    /*
-       TAMANHO DO GRÁFICO
+                aspect-ratio: 1536 / 2048;
 
-       O tamanho acompanha a largura
-       da tela do celular.
-    */
+                height: auto;
 
-    .progress-ring {
+                min-height: 0;
 
-        width: 52vw;
+                position: relative;
 
-        height: 52vw;
+                overflow: hidden;
 
-        max-width: 300px;
+                background-color: #f7f3eb;
 
-        max-height: 300px;
-    }
+                background-image:
+                    url("V5-CELULAR.png");
 
+                background-repeat: no-repeat;
 
-    /*
-       PERCENTUAL PROPORCIONAL
-       AO TAMANHO DO GRÁFICO
-    */
+                background-position: center top;
 
-    .percent {
+                background-size: 100% 100%;
+            }
 
-        font-size: 12vw;
 
-        max-font-size: 72px;
+            /*
+               ESCONDE COMPLETAMENTE A ARTE DESKTOP
+            */
 
-        font-weight: 900;
+            .background {
 
-        letter-spacing: -1px;
-    }
+                display: none;
+            }
 
 
-    /*
-       TEXTO ABAIXO DO PERCENTUAL
-    */
+            /*
+               =================================================
+               GRÁFICO NO CELULAR
+               =================================================
 
-    .percent-label {
+               left: 50%
+               = centralização horizontal
 
-        margin-top: 12px;
+               top: 57%
+               = posição vertical no espaço vazio
+            */
 
-        font-size: 4.2vw;
+            .chart-area {
 
-        font-weight: 800;
-    }
+                position: absolute;
 
-}
+                width: 100%;
 
+                height: auto;
 
-/* =========================================================
-   CELULARES MUITO PEQUENOS
-   ========================================================= */
+                left: 50%;
 
-@media (max-width: 380px) {
+                top: 57%;
 
-    .chart-area {
+                transform:
+                    translate(-50%, -50%);
 
-        top: 45%;
-    }
+                display: flex;
 
+                align-items: center;
 
-    .progress-ring {
+                justify-content: center;
 
-        width: 54vw;
+                z-index: 20;
+            }
 
-        height: 54vw;
-    }
 
+            /*
+               =================================================
+               TAMANHO DO GRÁFICO MOBILE
+               =================================================
 
-    .percent {
+               Menor que a versão anterior para não
+               invadir o título.
+            */
 
-        font-size: 13vw;
-    }
+            .progress-ring {
 
+                width: 44vw;
 
-    .percent-label {
+                height: 44vw;
 
-        font-size: 4.5vw;
-    }
+                max-width: 250px;
 
-}
+                max-height: 250px;
 
+                border-radius: 50%;
 
-/* =========================================================
-   CELULARES GRANDES
-   ========================================================= */
+                display: flex;
 
-@media (min-width: 601px) and (max-width: 1000px) {
+                align-items: center;
 
-    .chart-area {
+                justify-content: center;
 
-        left: 68%;
-    }
+                background:
+                    conic-gradient(
+                        #005c3b 0deg,
+                        #005c3b var(--progress-angle),
+                        #e5dfd3 var(--progress-angle),
+                        #e5dfd3 360deg
+                    );
 
-}
+                box-shadow:
+                    0 8px 25px
+                    rgba(60, 50, 40, 0.12);
+            }
 
-</style>
+
+            /*
+               PARTE INTERNA DO GRÁFICO
+            */
+
+            .progress-ring::before {
+
+                content: "";
+
+                position: absolute;
+
+                width: 82%;
+
+                height: 82%;
+
+                border-radius: 50%;
+
+                background: #f7f3eb;
+            }
+
+
+            /*
+               CONTEÚDO INTERNO
+            */
+
+            .progress-content {
+
+                position: relative;
+
+                z-index: 2;
+
+                display: flex;
+
+                flex-direction: column;
+
+                align-items: center;
+
+                justify-content: center;
+
+                text-align: center;
+
+                line-height: 1;
+            }
+
+
+            /*
+               =================================================
+               PERCENTUAL MOBILE
+               =================================================
+
+               Continua proporcional ao gráfico.
+            */
+
+            .percent {
+
+                font-size: 10vw;
+
+                font-weight: 900;
+
+                color: #005c3b;
+
+                line-height: 1;
+
+                letter-spacing: -1px;
+            }
+
+
+            /*
+               TEXTO "DA NOSSA META"
+            */
+
+            .percent-label {
+
+                margin-top: 10px;
+
+                font-size: 3.5vw;
+
+                font-weight: 800;
+
+                color: #d95f00;
+
+                line-height: 1.1;
+
+                text-transform: uppercase;
+            }
+
+        }
+
+
+        /* =====================================================
+           CELULARES PEQUENOS
+           ===================================================== */
+
+        @media (max-width: 380px) {
+
+
+            .chart-area {
+
+                top: 57%;
+            }
+
+
+            .progress-ring {
+
+                width: 45vw;
+
+                height: 45vw;
+            }
+
+
+            .percent {
+
+                font-size: 10vw;
+            }
+
+
+            .percent-label {
+
+                font-size: 3.6vw;
+            }
+
+        }
+
+
+    </style>
 
 </head>
 
@@ -463,168 +602,182 @@ body {
 <body>
 
 
-<div class="page">
-
-
     <!-- =====================================================
-         IMAGEM DESKTOP
+         PÁGINA
          ===================================================== -->
 
-    <img
-        class="background"
-        src="V5-BASE.png"
-        alt="Campanha de doação de ração"
-    >
+    <div class="page">
 
 
-    <!-- =====================================================
-         GRÁFICO DINÂMICO
-         ===================================================== -->
+        <!-- =================================================
+             ARTE DESKTOP
+             ================================================= -->
 
-    <div
-        class="chart-area"
-        id="chartArea"
-    >
-
-        <div
-            class="progress-ring"
-            id="progressRing"
+        <img
+            class="background"
+            src="V5-BASE.png"
+            alt="Campanha de doação de ração"
         >
 
-            <div class="progress-content">
+
+        <!-- =================================================
+             GRÁFICO DINÂMICO
+             ================================================= -->
+
+        <div
+            class="chart-area"
+            id="chartArea"
+        >
+
+
+            <div
+                class="progress-ring"
+                id="progressRing"
+            >
+
 
                 <div
-                    class="percent"
-                    id="percent"
+                    class="progress-content"
                 >
-                    11,8%
+
+
+                    <div
+                        class="percent"
+                        id="percent"
+                    >
+                        11,8%
+                    </div>
+
+
+                    <div
+                        class="percent-label"
+                    >
+                        DA NOSSA META
+                    </div>
+
+
                 </div>
 
-                <div
-                    class="percent-label"
-                >
-                    DA NOSSA META
-                </div>
 
             </div>
 
+
         </div>
+
 
     </div>
 
 
-</div>
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
 
 
-<script>
-
-/* =========================================================
-   DADOS DA CAMPANHA
-   ========================================================= */
+        /* =====================================================
+           DADOS DA CAMPANHA
+           ===================================================== */
 
 
-/*
-   ALTERE SOMENTE ESTE NÚMERO
-   QUANDO RECEBER NOVAS DOAÇÕES.
-*/
+        /*
+           =====================================================
+           ALTERE SOMENTE ESTE NÚMERO
+           =====================================================
 
-const arrecadado = 118;
+           Atualmente:
+           118 KG
+        */
 
-
-/*
-   META TOTAL DA CAMPANHA
-*/
-
-const meta = 1000;
+        const arrecadado = 118;
 
 
-/* =========================================================
-   CÁLCULO DO PERCENTUAL
-   ========================================================= */
+        /*
+           META DA CAMPANHA
+        */
 
-let percentual = (arrecadado / meta) * 100;
-
-
-/*
-   Impede passar de 100%
-*/
-
-if (percentual > 100) {
-
-    percentual = 100;
-
-}
+        const meta = 1000;
 
 
-/* =========================================================
-   ÂNGULO DO GRÁFICO
-   ========================================================= */
+        /* =====================================================
+           CALCULA O PERCENTUAL
+           ===================================================== */
 
-const angulo = percentual * 3.6;
-
-
-/* =========================================================
-   ATUALIZA O GRÁFICO
-   ========================================================= */
-
-const progressRing =
-    document.getElementById("progressRing");
+        let percentual =
+            (arrecadado / meta) * 100;
 
 
-progressRing.style.setProperty(
-    "--progress-angle",
-    angulo + "deg"
-);
+        /*
+           Impede ultrapassar 100%
+        */
 
+        if (percentual > 100) {
 
-/* =========================================================
-   ATUALIZA O TEXTO
-   ========================================================= */
+            percentual = 100;
 
-const percentElement =
-    document.getElementById("percent");
-
-
-percentElement.textContent =
-    percentual
-        .toLocaleString(
-            "pt-BR",
-            {
-                minimumFractionDigits: 1,
-                maximumFractionDigits: 1
-            }
-        )
-        + "%";
-
-
-/* =========================================================
-   ANIMAÇÃO INICIAL
-   ========================================================= */
-
-progressRing.animate(
-
-    [
-        {
-            "--progress-angle": "0deg"
-        },
-
-        {
-            "--progress-angle":
-                angulo + "deg"
         }
-    ],
 
-    {
-        duration: 1200,
 
-        easing: "ease-out",
+        /*
+           Evita valores negativos
+        */
 
-        fill: "forwards"
-    }
+        if (percentual < 0) {
 
-);
+            percentual = 0;
 
-</script>
+        }
+
+
+        /* =====================================================
+           CALCULA O ÂNGULO
+           ===================================================== */
+
+        const angulo =
+            percentual * 3.6;
+
+
+        /* =====================================================
+           PEGA O GRÁFICO
+           ===================================================== */
+
+        const progressRing =
+            document.getElementById(
+                "progressRing"
+            );
+
+
+        /* =====================================================
+           APLICA O PREENCHIMENTO
+           ===================================================== */
+
+        progressRing.style.setProperty(
+            "--progress-angle",
+            angulo + "deg"
+        );
+
+
+        /* =====================================================
+           ATUALIZA O PERCENTUAL
+           ===================================================== */
+
+        const percentElement =
+            document.getElementById(
+                "percent"
+            );
+
+
+        percentElement.textContent =
+            percentual.toLocaleString(
+                "pt-BR",
+                {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                }
+            ) + "%";
+
+
+    </script>
 
 
 </body>
