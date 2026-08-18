@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 
 <head>
+
 <meta charset="UTF-8">
 
 <meta name="viewport"
@@ -12,22 +13,24 @@
 <style>
 
 /* =========================================================
-   CORES DO PAINEL
+   CORES
    ========================================================= */
 
 :root {
-    --verde: #6f9272;
-    --verde-escuro: #4f6f52;
-    --verde-claro: #a8bd9e;
-    --verde-muito-claro: #dfe8d8;
 
-    --marrom: #59493f;
-    --marrom-claro: #806f63;
+    --verde: #709574;
+    --verde-escuro: #4f7053;
+    --verde-claro: #a9bea3;
+    --verde-palido: #dfe8db;
+
+    --marrom: #59483e;
+    --marrom-claro: #7d6c61;
 
     --creme: #f7f3eb;
     --creme-escuro: #e7dfd2;
 
     --branco: #ffffff;
+
 }
 
 
@@ -39,22 +42,31 @@
     box-sizing: border-box;
 }
 
+html,
 body {
+
+    width: 100%;
+    height: 100%;
 
     margin: 0;
 
-    min-height: 100vh;
+}
+
+body {
+
+    overflow: hidden;
 
     background:
+
         radial-gradient(
-            circle at 10% 20%,
-            rgba(111,146,114,0.08) 0,
+            circle at 8% 15%,
+            rgba(112,149,116,0.12),
             transparent 18%
         ),
 
         radial-gradient(
-            circle at 90% 80%,
-            rgba(111,146,114,0.08) 0,
+            circle at 92% 82%,
+            rgba(112,149,116,0.10),
             transparent 20%
         ),
 
@@ -68,13 +80,6 @@ body {
 
     color: var(--marrom);
 
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    overflow: hidden;
 }
 
 
@@ -84,24 +89,23 @@ body {
 
 .painel {
 
-    width: 94vw;
+    width: 100vw;
+    height: 100vh;
 
-    height: 92vh;
-
-    max-width: 1700px;
-
-    max-height: 950px;
+    padding:
+        clamp(25px, 3vh, 45px)
+        clamp(35px, 4vw, 75px);
 
     display: grid;
 
     grid-template-columns:
-        28% 72%;
+        24% 56% 20%;
 
-    gap: 35px;
+    grid-template-rows:
+        18% 62% 20%;
 
-    padding: 35px 45px;
+    gap: 0 25px;
 
-    position: relative;
 }
 
 
@@ -109,19 +113,175 @@ body {
    DECORAÇÕES
    ========================================================= */
 
-.patinhas {
+.decoracao {
 
     position: absolute;
 
-    font-size: 34px;
+    color: var(--verde-claro);
 
-    opacity: 0.45;
+    opacity: 0.65;
 
-    letter-spacing: 12px;
+    pointer-events: none;
 
-    top: 5px;
+}
 
-    right: 25px;
+.decoracao-top {
+
+    top: 20px;
+
+    right: 40px;
+
+    font-size:
+        clamp(25px, 2.5vw, 45px);
+
+    letter-spacing: 20px;
+
+}
+
+.decoracao-left {
+
+    left: 15px;
+
+    bottom: 20%;
+
+    font-size: 25px;
+
+}
+
+.decoracao-right {
+
+    right: 15px;
+
+    top: 45%;
+
+    font-size: 28px;
+
+}
+
+
+/* =========================================================
+   CABEÇALHO
+   ========================================================= */
+
+.cabecalho {
+
+    grid-column: 2 / 4;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    padding-left: 10px;
+
+}
+
+
+.titulo {
+
+    margin: 0;
+
+    font-size:
+        clamp(42px, 5vw, 78px);
+
+    line-height: 0.95;
+
+    font-weight: 900;
+
+    letter-spacing: 1px;
+
+    color: var(--marrom);
+
+}
+
+
+.titulo span {
+
+    color: var(--verde-escuro);
+
+}
+
+
+.subtitulo {
+
+    margin-top: 12px;
+
+    font-size:
+        clamp(18px, 1.8vw, 29px);
+
+    color: var(--marrom-claro);
+
+}
+
+
+.frase {
+
+    margin-top: 16px;
+
+    width: fit-content;
+
+    padding:
+        9px 25px;
+
+    border-radius: 30px;
+
+    background: var(--verde-escuro);
+
+    color: white;
+
+    font-size:
+        clamp(16px, 1.5vw, 24px);
+
+    font-weight: 700;
+
+}
+
+
+/* =========================================================
+   ÁREA DO TERMÔMETRO
+   ========================================================= */
+
+.area-termometro {
+
+    grid-column: 1;
+
+    grid-row: 1 / 3;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    position: relative;
+
+}
+
+
+/* título pequeno */
+
+.meta-topo {
+
+    position: absolute;
+
+    top: 8%;
+
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 100%;
+
+    text-align: center;
+
+    font-size:
+        clamp(15px, 1.3vw, 21px);
+
+    font-weight: 800;
+
+    color: var(--marrom);
+
 }
 
 
@@ -129,41 +289,37 @@ body {
    TERMÔMETRO
    ========================================================= */
 
-.area-termometro {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    position: relative;
-}
-
-
-/* Corpo do termômetro */
-
 .termometro {
 
     position: relative;
 
-    width: 105px;
+    width:
+        clamp(70px, 6vw, 100px);
 
-    height: 620px;
+    height:
+        65%;
 
-    background: var(--branco);
+    min-height: 420px;
 
-    border: 8px solid var(--marrom);
+    max-height: 610px;
+
+    background: white;
+
+    border:
+        clamp(5px, 0.45vw, 8px)
+        solid
+        var(--marrom);
 
     border-radius: 60px;
 
     box-shadow:
-        0 8px 25px rgba(70,55,45,0.12);
+        0 8px 25px
+        rgba(80,60,50,0.12);
 
 }
 
 
-/* Tubo interno */
+/* tubo */
 
 .tubo {
 
@@ -173,11 +329,13 @@ body {
 
     transform: translateX(-50%);
 
-    bottom: 95px;
+    bottom: 75px;
 
-    width: 35px;
+    width: 32%;
 
-    height: 450px;
+    height: 78%;
+
+    min-width: 22px;
 
     background: var(--creme-escuro);
 
@@ -188,7 +346,7 @@ body {
 }
 
 
-/* Líquido do termômetro */
+/* preenchimento */
 
 .liquido {
 
@@ -203,46 +361,54 @@ body {
     height: 11.8%;
 
     background:
+
         linear-gradient(
             to top,
             var(--verde-escuro),
             var(--verde)
         );
 
-    border-radius: 30px 30px 0 0;
+    border-radius:
+        30px 30px 0 0;
 
     transition:
-        height 1.5s ease;
+        height 1.8s ease;
 
 }
 
 
-/* Bolinha inferior */
+/* bolinha */
 
 .bolinha {
 
     position: absolute;
 
-    bottom: 20px;
+    bottom: 12px;
 
     left: 50%;
 
     transform: translateX(-50%);
 
-    width: 105px;
+    width:
+        clamp(70px, 6vw, 100px);
 
-    height: 105px;
+    height:
+        clamp(70px, 6vw, 100px);
 
     border-radius: 50%;
 
     background:
+
         radial-gradient(
-            circle,
-            var(--verde) 0%,
-            var(--verde-escuro) 100%
+            circle at 35% 30%,
+            #88a889,
+            var(--verde-escuro)
         );
 
-    border: 7px solid var(--marrom);
+    border:
+        clamp(5px, 0.45vw, 8px)
+        solid
+        var(--marrom);
 
     display: flex;
 
@@ -250,154 +416,94 @@ body {
 
     justify-content: center;
 
-    color: white;
-
-    font-size: 40px;
+    font-size:
+        clamp(24px, 2.5vw, 40px);
 
 }
 
 
-/* Marcas do termômetro */
+/* =========================================================
+   MARCAS DO TERMÔMETRO
+   ========================================================= */
 
 .marca {
 
     position: absolute;
 
-    left: 125px;
+    left:
+        calc(50% + 55px);
 
-    display: flex;
-
-    align-items: center;
-
-    gap: 10px;
+    transform: translateY(50%);
 
     white-space: nowrap;
 
-    font-weight: 700;
+    font-size:
+        clamp(13px, 1.15vw, 19px);
+
+    font-weight: 800;
 
     color: var(--marrom);
+
 }
+
 
 .marca::before {
 
     content: "";
 
-    width: 35px;
+    display: inline-block;
 
-    height: 4px;
+    width: 25px;
+
+    height: 3px;
 
     background: var(--marrom);
+
+    margin-right: 8px;
+
+    vertical-align: middle;
 
     border-radius: 5px;
 
 }
 
 
-/* posições */
-
 .marca-1000 {
-    top: 15px;
+    top: 17%;
 }
 
 .marca-750 {
-    top: 170px;
+    top: 34%;
 }
 
 .marca-500 {
-    top: 325px;
+    top: 51%;
 }
 
 .marca-250 {
-    top: 480px;
+    top: 68%;
 }
 
 .marca-0 {
-    bottom: 18px;
+    top: 85%;
 }
 
 
 /* =========================================================
-   CONTEÚDO
+   CONTEÚDO CENTRAL
    ========================================================= */
 
 .conteudo {
+
+    grid-column: 2;
+
+    grid-row: 2;
 
     display: flex;
 
     flex-direction: column;
 
     justify-content: center;
-
-    padding-top: 15px;
-
-}
-
-
-/* título */
-
-.titulo {
-
-    font-size:
-        clamp(38px, 4.2vw, 72px);
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
-
-    line-height: 0.95;
-
-    color: var(--marrom);
-
-    margin: 0;
-
-}
-
-
-/* parte verde do título */
-
-.titulo span {
-
-    color: var(--verde-escuro);
-
-}
-
-
-/* subtítulo */
-
-.subtitulo {
-
-    font-size:
-        clamp(18px, 1.8vw, 30px);
-
-    margin-top: 15px;
-
-    color: var(--marrom-claro);
-
-}
-
-
-/* frase */
-
-.frase {
-
-    display: inline-block;
-
-    width: fit-content;
-
-    margin-top: 25px;
-
-    padding: 10px 25px;
-
-    background: var(--verde-escuro);
-
-    color: white;
-
-    border-radius: 30px;
-
-    font-size:
-        clamp(17px, 1.7vw, 27px);
-
-    font-weight: 700;
 
 }
 
@@ -408,26 +514,27 @@ body {
 
 .card {
 
-    margin-top: 30px;
+    background:
+        rgba(255,255,255,0.85);
 
-    background: rgba(255,255,255,0.78);
+    border:
+        2px solid
+        rgba(112,149,116,0.18);
 
-    border: 2px solid rgba(111,146,114,0.18);
+    border-radius: 28px;
 
-    border-radius: 30px;
-
-    padding: 25px 35px;
+    padding:
+        clamp(25px, 3vw, 45px);
 
     display: flex;
 
-    align-items: center;
-
     justify-content: space-between;
 
-    gap: 25px;
+    align-items: center;
 
     box-shadow:
-        0 8px 30px rgba(80,65,55,0.08);
+        0 10px 30px
+        rgba(70,55,45,0.08);
 
 }
 
@@ -437,15 +544,13 @@ body {
 .numero {
 
     font-size:
-        clamp(70px, 8vw, 135px);
+        clamp(75px, 8vw, 145px);
 
-    line-height: 0.9;
+    line-height: 0.85;
 
     font-weight: 900;
 
     color: var(--verde-escuro);
-
-    margin: 0;
 
 }
 
@@ -453,43 +558,40 @@ body {
 .numero small {
 
     font-size:
-        clamp(25px, 3vw, 50px);
+        clamp(27px, 2.5vw, 48px);
 
 }
 
 
-/* de 1000 */
-
 .de {
 
+    margin-top: 12px;
+
     font-size:
-        clamp(20px, 2vw, 32px);
+        clamp(20px, 1.8vw, 30px);
 
     font-weight: 700;
 
     color: var(--marrom-claro);
 
-    margin-top: 10px;
-
 }
 
 
 /* =========================================================
-   CÍRCULO DO PERCENTUAL
+   CÍRCULO DE PERCENTUAL
    ========================================================= */
 
 .circulo {
 
     width:
-        clamp(130px, 11vw, 180px);
+        clamp(135px, 11vw, 175px);
 
     height:
-        clamp(130px, 11vw, 180px);
+        clamp(135px, 11vw, 175px);
 
     border-radius: 50%;
 
     background:
-
         conic-gradient(
             var(--verde)
             0deg,
@@ -520,9 +622,9 @@ body {
 
     height: 78%;
 
-    border-radius: 50%;
-
     background: var(--creme);
+
+    border-radius: 50%;
 
 }
 
@@ -536,7 +638,7 @@ body {
     text-align: center;
 
     font-size:
-        clamp(25px, 3vw, 45px);
+        clamp(27px, 2.7vw, 43px);
 
     font-weight: 900;
 
@@ -549,8 +651,10 @@ body {
 
     display: block;
 
+    margin-top: 3px;
+
     font-size:
-        clamp(11px, 1vw, 16px);
+        clamp(10px, 0.9vw, 15px);
 
     color: var(--marrom-claro);
 
@@ -558,21 +662,19 @@ body {
 
 
 /* =========================================================
-   MENSAGEM DE FALTAM
+   MENSAGEM FALTAM
    ========================================================= */
 
 .faltam {
 
-    margin-top: 20px;
+    margin-top: 18px;
 
     text-align: center;
 
     font-size:
-        clamp(20px, 2.1vw, 34px);
+        clamp(19px, 1.8vw, 29px);
 
     font-weight: 700;
-
-    color: var(--marrom);
 
 }
 
@@ -585,21 +687,24 @@ body {
 
 
 /* =========================================================
-   LINHA DE PROGRESSO
+   PROGRESSO
    ========================================================= */
 
 .progresso {
 
-    margin-top: 25px;
+    margin-top: 20px;
 
 }
 
 
 .linha-fundo {
 
+    position: relative;
+
     width: 100%;
 
-    height: 25px;
+    height:
+        clamp(18px, 2vh, 25px);
 
     background: var(--creme-escuro);
 
@@ -642,7 +747,7 @@ body {
 
     justify-content: space-between;
 
-    margin-top: 12px;
+    margin-top: 10px;
 
 }
 
@@ -652,7 +757,7 @@ body {
     text-align: center;
 
     font-size:
-        clamp(12px, 1.2vw, 18px);
+        clamp(11px, 1vw, 17px);
 
     font-weight: 700;
 
@@ -661,22 +766,119 @@ body {
 }
 
 
-.marco .bolinha-marco {
+.marco-ponto {
 
-    width: 17px;
+    width: 14px;
 
-    height: 17px;
+    height: 14px;
+
+    margin:
+        0 auto 5px;
+
+    border-radius: 50%;
 
     background: var(--verde-claro);
-
-    border: 3px solid var(--creme);
 
     box-shadow:
         0 0 0 2px var(--verde-claro);
 
-    border-radius: 50%;
+}
 
-    margin: 0 auto 5px;
+
+/* =========================================================
+   PAINEL LATERAL
+   ========================================================= */
+
+.lateral {
+
+    grid-column: 3;
+
+    grid-row: 2;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    align-items: center;
+
+    text-align: center;
+
+}
+
+
+/* balão */
+
+.faltam-card {
+
+    width: 90%;
+
+    padding:
+        25px 20px;
+
+    background:
+        var(--verde-palido);
+
+    border:
+        2px solid
+        rgba(112,149,116,0.2);
+
+    border-radius: 30px;
+
+    box-shadow:
+        0 8px 20px
+        rgba(70,55,45,0.06);
+
+}
+
+
+.faltam-titulo {
+
+    font-size:
+        clamp(17px, 1.4vw, 24px);
+
+    font-weight: 800;
+
+    color: var(--marrom);
+
+}
+
+
+.faltam-numero {
+
+    margin-top: 8px;
+
+    font-size:
+        clamp(45px, 4.5vw, 75px);
+
+    line-height: 1;
+
+    font-weight: 900;
+
+    color: var(--verde-escuro);
+
+}
+
+
+.faltam-kg {
+
+    font-size:
+        clamp(18px, 1.6vw, 27px);
+
+    font-weight: 800;
+
+}
+
+
+.faltam-frase {
+
+    margin-top: 8px;
+
+    font-size:
+        clamp(14px, 1.2vw, 19px);
+
+    color: var(--marrom-claro);
 
 }
 
@@ -687,13 +889,15 @@ body {
 
 .rodape {
 
-    margin-top: 25px;
+    grid-column: 2 / 4;
+
+    grid-row: 3;
 
     display: flex;
 
-    justify-content: space-between;
-
     align-items: center;
+
+    justify-content: space-between;
 
     gap: 20px;
 
@@ -702,16 +906,18 @@ body {
 
 .data {
 
-    background: var(--verde-escuro);
-
-    color: white;
-
-    padding: 12px 22px;
+    padding:
+        12px 24px;
 
     border-radius: 20px;
 
+    background:
+        var(--verde-escuro);
+
+    color: white;
+
     font-size:
-        clamp(15px, 1.4vw, 23px);
+        clamp(15px, 1.3vw, 21px);
 
     font-weight: 700;
 
@@ -721,7 +927,7 @@ body {
 .mensagem-final {
 
     font-size:
-        clamp(16px, 1.6vw, 25px);
+        clamp(16px, 1.5vw, 24px);
 
     font-weight: 800;
 
@@ -734,7 +940,7 @@ body {
    RESPONSIVIDADE
    ========================================================= */
 
-@media (max-width: 1000px) {
+@media (max-width: 900px) {
 
     body {
         overflow: auto;
@@ -742,24 +948,33 @@ body {
 
     .painel {
 
+        width: 100%;
+
         height: auto;
 
-        grid-template-columns: 1fr;
+        min-height: 100vh;
+
+        display: flex;
+
+        flex-direction: column;
 
         padding: 30px;
 
     }
 
     .area-termometro {
-
         display: none;
-
     }
 
-    .conteudo {
+    .cabecalho,
+    .conteudo,
+    .lateral,
+    .rodape {
+        width: 100%;
+    }
 
-        padding-top: 30px;
-
+    .rodape {
+        flex-direction: column;
     }
 
 }
@@ -772,14 +987,23 @@ body {
 <body>
 
 
+<!-- DECORAÇÕES -->
+
+<div class="decoracao decoracao-top">
+    🐾 🐾 🐾
+</div>
+
+<div class="decoracao decoracao-left">
+    🐾
+</div>
+
+<div class="decoracao decoracao-right">
+    🐾
+</div>
+
+
+
 <div class="painel">
-
-
-    <!-- DECORAÇÃO -->
-
-    <div class="patinhas">
-        🐾 🐾 🐾
-    </div>
 
 
     <!-- =====================================================
@@ -787,6 +1011,11 @@ body {
          ===================================================== -->
 
     <div class="area-termometro">
+
+        <div class="meta-topo">
+            🎯 META: 1.000 KG
+        </div>
+
 
         <div class="termometro">
 
@@ -808,7 +1037,7 @@ body {
 
 
         <div class="marca marca-1000">
-            1.000 KG · META 🎯
+            1.000 KG · META
         </div>
 
         <div class="marca marca-750">
@@ -832,11 +1061,10 @@ body {
 
 
     <!-- =====================================================
-         CONTEÚDO PRINCIPAL
+         CABEÇALHO
          ===================================================== -->
 
-    <div class="conteudo">
-
+    <div class="cabecalho">
 
         <h1 class="titulo">
 
@@ -861,9 +1089,16 @@ body {
 
         </div>
 
+    </div>
 
 
-        <!-- CARD -->
+
+    <!-- =====================================================
+         CONTEÚDO
+         ===================================================== -->
+
+    <div class="conteudo">
+
 
         <div class="card">
 
@@ -873,9 +1108,12 @@ body {
                 <div
                     class="numero"
                     id="kg">
+
                     118
                     <small>KG</small>
+
                 </div>
+
 
                 <div class="de">
 
@@ -909,8 +1147,6 @@ body {
 
 
 
-        <!-- FALTAM -->
-
         <div
             class="faltam"
             id="faltam">
@@ -923,9 +1159,8 @@ body {
 
 
 
-        <!-- PROGRESSO -->
-
         <div class="progresso">
+
 
             <div class="linha-fundo">
 
@@ -942,7 +1177,7 @@ body {
 
                 <div class="marco">
 
-                    <div class="bolinha-marco"></div>
+                    <div class="marco-ponto"></div>
 
                     250 KG
 
@@ -951,7 +1186,7 @@ body {
 
                 <div class="marco">
 
-                    <div class="bolinha-marco"></div>
+                    <div class="marco-ponto"></div>
 
                     500 KG
 
@@ -960,7 +1195,7 @@ body {
 
                 <div class="marco">
 
-                    <div class="bolinha-marco"></div>
+                    <div class="marco-ponto"></div>
 
                     750 KG
 
@@ -969,7 +1204,7 @@ body {
 
                 <div class="marco">
 
-                    <div class="bolinha-marco"></div>
+                    <div class="marco-ponto"></div>
 
                     1.000 KG 🎯
 
@@ -981,25 +1216,47 @@ body {
         </div>
 
 
-
-        <!-- RODAPÉ -->
-
-        <div class="rodape">
+    </div>
 
 
-            <div class="data">
 
-                📅 CAMPANHA ATÉ
-                <strong>
-                    31/08/2026
-                </strong>
+    <!-- =====================================================
+         LATERAL
+         ===================================================== -->
+
+    <div class="lateral">
+
+
+        <div class="faltam-card">
+
+
+            <div class="faltam-titulo">
+
+                🐾 AINDA FALTAM
 
             </div>
 
 
-            <div class="mensagem-final">
+            <div
+                class="faltam-numero"
+                id="faltamNumero">
 
-                🐾 CADA QUILO FAZ A DIFERENÇA!
+                882
+
+            </div>
+
+
+            <div class="faltam-kg">
+
+                KG
+
+            </div>
+
+
+            <div class="faltam-frase">
+
+                para chegarmos
+                à nossa meta!
 
             </div>
 
@@ -1008,6 +1265,35 @@ body {
 
 
     </div>
+
+
+
+    <!-- =====================================================
+         RODAPÉ
+         ===================================================== -->
+
+    <div class="rodape">
+
+
+        <div class="data">
+
+            📅 CAMPANHA ATÉ
+            <strong>
+                31/08/2026
+            </strong>
+
+        </div>
+
+
+        <div class="mensagem-final">
+
+            🐾 CADA QUILO FAZ A DIFERENÇA!
+
+        </div>
+
+
+    </div>
+
 
 </div>
 
@@ -1019,8 +1305,7 @@ body {
 /* =========================================================
    ⭐⭐⭐ ATUALIZE SOMENTE ESTE NÚMERO ⭐⭐⭐
 
-   Coloque aqui a quantidade de KG
-   já contabilizados na campanha.
+   Quando a campanha avançar, altere somente o número.
 
    Exemplo:
 
@@ -1037,7 +1322,6 @@ const kgArrecadados = 118;
    NÃO ALTERE NADA ABAIXO
    ========================================================= */
 
-
 const meta = 1000;
 
 
@@ -1046,8 +1330,6 @@ const meta = 1000;
 let percentual =
     (kgArrecadados / meta) * 100;
 
-
-/* limitar em 100% */
 
 if (percentual > 100) {
 
@@ -1063,6 +1345,7 @@ const faltam =
         meta - kgArrecadados,
         0
     );
+
 
 
 /* =========================================================
@@ -1101,7 +1384,7 @@ document.getElementById("liquido").style.height =
 
 
 /* =========================================================
-   BARRA DE PROGRESSO
+   BARRA
    ========================================================= */
 
 document.getElementById("linha").style.width =
@@ -1111,21 +1394,25 @@ document.getElementById("linha").style.width =
 
 
 /* =========================================================
-   CÍRCULO DO PERCENTUAL
+   CÍRCULO
    ========================================================= */
+
+const graus =
+    percentual * 3.6;
+
 
 document.getElementById("circulo").style.background =
 
     `conic-gradient(
-        #6f9272 0deg,
-        #6f9272 ${percentual * 3.6}deg,
-        #e7dfd2 ${percentual * 3.6}deg
+        #709574 0deg,
+        #709574 ${graus}deg,
+        #e7dfd2 ${graus}deg
     )`;
 
 
 
 /* =========================================================
-   MENSAGEM
+   MENSAGEM CENTRAL
    ========================================================= */
 
 if (faltam > 0) {
@@ -1145,6 +1432,16 @@ if (faltam > 0) {
         "🎉 <strong>META DE 1.000 KG ATINGIDA!</strong> 🎉";
 
 }
+
+
+
+/* =========================================================
+   CARD LATERAL
+   ========================================================= */
+
+document.getElementById("faltamNumero").textContent =
+
+    faltam.toLocaleString("pt-BR");
 
 
 </script>
