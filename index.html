@@ -43,7 +43,6 @@
 
 
         body {
-
             overflow-x: hidden;
         }
 
@@ -68,7 +67,7 @@
 
 
         /* =====================================================
-           IMAGEM DE FUNDO DESKTOP
+           IMAGEM DESKTOP
            ===================================================== */
 
         .background {
@@ -107,7 +106,7 @@
 
 
         /* =====================================================
-           GRÁFICO CIRCULAR
+           GRÁFICO
            ===================================================== */
 
         .progress-ring {
@@ -138,7 +137,7 @@
 
 
         /* =====================================================
-           PARTE INTERNA DO GRÁFICO
+           PARTE INTERNA
            ===================================================== */
 
         .progress-ring::before {
@@ -157,7 +156,7 @@
 
 
         /* =====================================================
-           CONTEÚDO DO GRÁFICO
+           CONTEÚDO INTERNO
            ===================================================== */
 
         .progress-content {
@@ -227,9 +226,8 @@
 
 
             /*
-               A página mantém a proporção da arte desktop.
-
-               V5-BASE.png = 1536 x 1024
+               A arte desktop possui:
+               1536 x 1024
             */
 
             .page {
@@ -249,7 +247,7 @@
 
 
             /*
-               Mostra a arte desktop
+               ARTE DESKTOP
             */
 
             .background {
@@ -273,10 +271,15 @@
 
 
             /*
+               =================================================
                GRÁFICO DESKTOP
+               =================================================
 
-               Mantemos a posição que já estava
-               funcionando na versão aprovada.
+               Mantemos a posição da versão que funcionou
+               no desktop.
+
+               O gráfico fica centralizado dentro da área
+               livre da arte.
             */
 
             .chart-area {
@@ -297,7 +300,7 @@
 
 
             /*
-               TAMANHO DO GRÁFICO DESKTOP
+               TAMANHO DO GRÁFICO
             */
 
             .progress-ring {
@@ -309,7 +312,8 @@
 
 
             /*
-               PERCENTUAL DESKTOP
+               PERCENTUAL
+               Sempre proporcional ao gráfico
             */
 
             .percent {
@@ -324,10 +328,13 @@
 
 
             /*
-               TEXTO DA META DESKTOP
+               TEXTO DA META
+               Sempre proporcional ao gráfico
             */
 
             .percent-label {
+
+                margin-top: 4%;
 
                 font-size:
                     clamp(
@@ -350,10 +357,12 @@
 
 
             /*
-               A página passa a ter a proporção
-               EXCLUSIVA da arte vertical.
+               =================================================
+               PÁGINA VERTICAL
+               =================================================
 
-               V5-CELULAR.png = 1536 x 2048
+               V5-CELULAR.png
+               1536 x 2048
             */
 
             .page {
@@ -384,7 +393,7 @@
 
 
             /*
-               ESCONDE COMPLETAMENTE A ARTE DESKTOP
+               ESCONDE A ARTE DESKTOP
             */
 
             .background {
@@ -395,14 +404,13 @@
 
             /*
                =================================================
-               GRÁFICO NO CELULAR
+               GRÁFICO MOBILE
                =================================================
 
-               left: 50%
-               = centralização horizontal
+               O espaço vazio da arte vertical fica
+               principalmente abaixo do título.
 
-               top: 57%
-               = posição vertical no espaço vazio
+               Por isso o gráfico é colocado mais para baixo.
             */
 
             .chart-area {
@@ -415,7 +423,13 @@
 
                 left: 50%;
 
-                top: 57%;
+                /*
+                   POSIÇÃO VERTICAL DO GRÁFICO
+
+                   68% = mais abaixo na arte
+                */
+
+                top: 68%;
 
                 transform:
                     translate(-50%, -50%);
@@ -435,26 +449,29 @@
                TAMANHO DO GRÁFICO MOBILE
                =================================================
 
-               Menor que a versão anterior para não
-               invadir o título.
+               O círculo usa a largura da tela.
+
+               Assim ele diminui/aumenta junto com
+               o celular.
             */
 
             .progress-ring {
 
-                width: 44vw;
+                width: 42vw;
 
-                height: 44vw;
+                height: 42vw;
 
                 max-width: 250px;
-
                 max-height: 250px;
+
+                min-width: 150px;
+                min-height: 150px;
 
                 border-radius: 50%;
 
                 display: flex;
 
                 align-items: center;
-
                 justify-content: center;
 
                 background:
@@ -472,7 +489,7 @@
 
 
             /*
-               PARTE INTERNA DO GRÁFICO
+               PARTE INTERNA
             */
 
             .progress-ring::before {
@@ -482,7 +499,6 @@
                 position: absolute;
 
                 width: 82%;
-
                 height: 82%;
 
                 border-radius: 50%;
@@ -492,7 +508,7 @@
 
 
             /*
-               CONTEÚDO INTERNO
+               CONTEÚDO
             */
 
             .progress-content {
@@ -506,7 +522,6 @@
                 flex-direction: column;
 
                 align-items: center;
-
                 justify-content: center;
 
                 text-align: center;
@@ -520,12 +535,12 @@
                PERCENTUAL MOBILE
                =================================================
 
-               Continua proporcional ao gráfico.
+               Proporcional ao círculo.
             */
 
             .percent {
 
-                font-size: 10vw;
+                font-size: 9vw;
 
                 font-weight: 900;
 
@@ -538,14 +553,18 @@
 
 
             /*
+               =================================================
                TEXTO "DA NOSSA META"
+               =================================================
+
+               Também acompanha o tamanho do círculo.
             */
 
             .percent-label {
 
-                margin-top: 10px;
+                margin-top: 4%;
 
-                font-size: 3.5vw;
+                font-size: 3.2vw;
 
                 font-weight: 800;
 
@@ -568,27 +587,33 @@
 
             .chart-area {
 
-                top: 57%;
+                /*
+                   Um pouco mais abaixo em telas pequenas
+                */
+
+                top: 69%;
             }
 
 
             .progress-ring {
 
-                width: 45vw;
+                width: 43vw;
+                height: 43vw;
 
-                height: 45vw;
+                min-width: 145px;
+                min-height: 145px;
             }
 
 
             .percent {
 
-                font-size: 10vw;
+                font-size: 9vw;
             }
 
 
             .percent-label {
 
-                font-size: 3.6vw;
+                font-size: 3.3vw;
             }
 
         }
@@ -629,17 +654,14 @@
             id="chartArea"
         >
 
-
             <div
                 class="progress-ring"
                 id="progressRing"
             >
 
-
                 <div
                     class="progress-content"
                 >
-
 
                     <div
                         class="percent"
@@ -655,12 +677,9 @@
                         DA NOSSA META
                     </div>
 
-
                 </div>
 
-
             </div>
-
 
         </div>
 
