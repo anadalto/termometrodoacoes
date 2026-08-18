@@ -16,6 +16,11 @@
 <style>
 
 /* =========================================================
+   V10 — TERMÔMETRO DE DOAÇÃO
+   ========================================================= */
+
+
+/* =========================================================
    CONFIGURAÇÕES GERAIS
    ========================================================= */
 
@@ -34,12 +39,6 @@ body {
     min-height: 100%;
 
     background: #f7f2e9;
-}
-
-
-body {
-
-    overflow-x: hidden;
 
     font-family:
         Arial,
@@ -48,9 +47,14 @@ body {
 }
 
 
+body {
+
+    overflow-x: hidden;
+}
+
+
 /* =========================================================
-   V9 — DESKTOP
-   Mantém a versão que aprovamos.
+   DESKTOP
    ========================================================= */
 
 .pagina {
@@ -65,15 +69,8 @@ body {
 
     overflow: hidden;
 
-
-    /*
-       IMPORTANTE:
-
-       V5-BASE.png precisa estar na mesma
-       pasta do index.html.
-    */
-
-    background-image: url("V5-BASE.png");
+    background-image:
+        url("V5-BASE.png");
 
     background-repeat: no-repeat;
 
@@ -84,53 +81,29 @@ body {
 
 
 /* =========================================================
-   GRÁFICO
+   GRÁFICO — DESKTOP
    ========================================================= */
 
 .grafico {
 
     position: absolute;
 
-    /*
-       Posição horizontal.
-       O cachorro está à esquerda,
-       então o gráfico fica na área clara.
-    */
-
     left: 66%;
 
-
-    /*
-       Posição vertical.
-    */
-
     top: 53%;
-
-
-    /*
-       Tamanho do gráfico.
-    */
 
     width: 30%;
 
     aspect-ratio: 1 / 1;
 
-
-    /*
-       Centraliza o próprio gráfico
-       no ponto definido acima.
-    */
-
     transform:
         translate(-50%, -50%);
-
 
     display: flex;
 
     align-items: center;
 
     justify-content: center;
-
 
     z-index: 20;
 }
@@ -147,12 +120,6 @@ body {
     inset: 0;
 
     border-radius: 50%;
-
-
-    /*
-       O JavaScript controla
-       o percentual preenchido.
-    */
 
     background:
         conic-gradient(
@@ -174,7 +141,7 @@ body {
 
 
 /* =========================================================
-   PARTE INTERNA DO CÍRCULO
+   CENTRO DO CÍRCULO
    ========================================================= */
 
 .circulo::after {
@@ -225,18 +192,12 @@ body {
 
     color: #005238;
 
-
-    /*
-       O tamanho acompanha a tela.
-    */
-
     font-size:
         clamp(
             42px,
             5.2vw,
             88px
         );
-
 
     line-height: 0.95;
 
@@ -247,7 +208,7 @@ body {
 
 
 /* =========================================================
-   "DA NOSSA META"
+   DA NOSSA META
    ========================================================= */
 
 .subtitulo {
@@ -259,9 +220,7 @@ body {
             22px
         );
 
-
     color: #d95f02;
-
 
     font-size:
         clamp(
@@ -269,7 +228,6 @@ body {
             1.55vw,
             30px
         );
-
 
     line-height: 1;
 
@@ -280,7 +238,7 @@ body {
 
 
 /* =========================================================
-   TABLET
+   DESKTOP / TABLET
    ========================================================= */
 
 @media (max-width: 900px) and (min-width: 601px) {
@@ -305,94 +263,267 @@ body {
 
         font-size: 1.7vw;
     }
+
 }
 
 
 /* =========================================================
-   CELULAR
+   =========================================================
+   CELULAR — LAYOUT VERTICAL
+   =========================================================
    ========================================================= */
 
 @media (max-width: 600px) {
 
-    html,
-    body {
 
-        width: 100%;
-
-        min-height: 100%;
-
-        background: #f7f2e9;
-    }
-
-
-    body {
-
-        overflow-x: hidden;
-
-        overflow-y: auto;
-    }
-
+    /* -----------------------------------------------------
+       PÁGINA MOBILE
+       ----------------------------------------------------- */
 
     .pagina {
 
-        width: 100vw;
-
-
         /*
-           Mantemos a proporção 16:9.
+           Agora a página é vertical.
 
-           Isso evita que o cachorro
-           fique achatado.
+           O desktop continua 16:9.
         */
 
-        aspect-ratio: 16 / 9;
+        width: 100vw;
 
-        min-height: 0;
+        height: 100vh;
 
+        min-height: 100svh;
 
-        background-size: 100% 100%;
+        aspect-ratio: auto;
 
-        background-position: center center;
+        margin: 0;
+
+        overflow: hidden;
+
+        /*
+           Não usamos mais a imagem inteira como fundo,
+           porque ela é horizontal.
+        */
+
+        background-image: none;
+
+        background-color: #f7f2e9;
     }
 
 
-    /*
-       Gráfico um pouco maior no celular
-       para continuar fácil de enxergar.
-    */
+    /* -----------------------------------------------------
+       CACHORRO / IMAGEM
+
+       Usamos a própria V5-BASE como imagem,
+       mas mostramos apenas a parte esquerda,
+       onde está o cachorro.
+       ----------------------------------------------------- */
+
+    .pagina::before {
+
+        content: "";
+
+        position: absolute;
+
+        top: 0;
+
+        left: 0;
+
+        width: 100%;
+
+        height: 38%;
+
+        /*
+           A imagem fica maior que a tela para podermos
+           mostrar a parte esquerda sem deformá-la.
+        */
+
+        background-image:
+            url("V5-BASE.png");
+
+        background-repeat: no-repeat;
+
+        /*
+           Mantém a proporção da imagem.
+
+           A altura da imagem é usada como referência.
+        */
+
+        background-size: auto 100%;
+
+        background-position: left center;
+
+        z-index: 1;
+    }
+
+
+    /* -----------------------------------------------------
+       ÁREA DE TÍTULO MOBILE
+       ----------------------------------------------------- */
+
+    .pagina::after {
+
+        content:
+            "TERMÔMETRO\A DE DOAÇÃO";
+
+        white-space: pre;
+
+        position: absolute;
+
+        top: 34%;
+
+        left: 5%;
+
+        width: 90%;
+
+        text-align: center;
+
+        color: #005238;
+
+        font-size: 8vw;
+
+        font-weight: 900;
+
+        line-height: 0.95;
+
+        letter-spacing: -0.5px;
+
+        z-index: 5;
+    }
+
+
+    /* -----------------------------------------------------
+       GRÁFICO MOBILE
+       ----------------------------------------------------- */
 
     .grafico {
 
-        left: 66%;
+        position: absolute;
 
-        top: 53%;
+        /*
+           Agora o gráfico fica no centro
+           REAL da tela.
+        */
 
-        width: 31%;
+        left: 50%;
 
+        top: 67%;
+
+
+        /*
+           Tamanho grande o suficiente para
+           leitura no celular.
+        */
+
+        width: 42vw;
+
+        height: 42vw;
+
+        min-width: 180px;
+
+        min-height: 180px;
+
+        max-width: 280px;
+
+        max-height: 280px;
+
+
+        aspect-ratio: 1 / 1;
 
         transform:
             translate(-50%, -50%);
+
+        z-index: 10;
     }
 
 
-    /*
-       Texto do gráfico.
-    */
+    /* -----------------------------------------------------
+       PERCENTUAL MOBILE
+       ----------------------------------------------------- */
 
     .percentual {
 
-        font-size: 6vw;
+        font-size:
+            clamp(
+                40px,
+                10vw,
+                70px
+            );
 
         line-height: 0.95;
     }
 
 
+    /* -----------------------------------------------------
+       TEXTO DA META MOBILE
+       ----------------------------------------------------- */
+
     .subtitulo {
 
-        margin-top: 1.4vw;
+        margin-top: 12px;
 
-        font-size: 1.9vw;
+        font-size:
+            clamp(
+                13px,
+                3.5vw,
+                22px
+            );
     }
+
+
+    /* -----------------------------------------------------
+       META MOBILE
+
+       Como a meta já está desenhada na imagem desktop,
+       recriamos somente o texto no mobile.
+       ----------------------------------------------------- */
+
+    .meta-mobile {
+
+        display: block;
+
+        position: absolute;
+
+        left: 50%;
+
+        top: 93%;
+
+        transform:
+            translate(-50%, -50%);
+
+        width: 95%;
+
+        text-align: center;
+
+        color: #005238;
+
+        font-size:
+            clamp(
+                18px,
+                5vw,
+                28px
+            );
+
+        font-weight: 900;
+
+        white-space: nowrap;
+
+        z-index: 10;
+    }
+
+
+    .meta-mobile strong {
+
+        color: #d95f02;
+
+        font-size:
+            clamp(
+                28px,
+                7vw,
+                42px
+            );
+    }
+
 }
 
 
@@ -404,24 +535,64 @@ body {
 
     .grafico {
 
-        left: 66%;
+        width: 44vw;
 
-        top: 53%;
+        height: 44vw;
 
-        width: 32%;
+        min-width: 165px;
+
+        min-height: 165px;
+
+        top: 68%;
     }
 
 
     .percentual {
 
-        font-size: 6.3vw;
+        font-size: 9.5vw;
     }
 
 
     .subtitulo {
 
-        font-size: 2vw;
+        font-size: 3.3vw;
     }
+
+
+    .pagina::after {
+
+        font-size: 8.5vw;
+
+        top: 34%;
+    }
+
+}
+
+
+/* =========================================================
+   META MOBILE
+   =========================================================
+
+   Fica escondida no desktop.
+   ========================================================= */
+
+.meta-mobile {
+
+    display: none;
+}
+
+
+/* =========================================================
+   REATIVA META NO CELULAR
+   ========================================================= */
+
+@media (max-width: 600px) {
+
+    .meta-mobile {
+
+        display: block;
+    }
+
 }
 
 </style>
@@ -450,15 +621,11 @@ body {
     >
 
 
-        <!-- CÍRCULO -->
-
         <div
             class="circulo"
             id="circulo"
         ></div>
 
-
-        <!-- TEXTO DO GRÁFICO -->
 
         <div class="conteudo-grafico">
 
@@ -483,37 +650,56 @@ body {
     </section>
 
 
+    <!-- ===================================================
+         META — SOMENTE PARA CELULAR
+         =================================================== -->
+
+    <div class="meta-mobile">
+
+        🎯 NOSSA META
+
+        <br>
+
+        <strong>1.000 KG</strong>
+
+    </div>
+
+
 </main>
 
 
 <script>
 
+
 /* =========================================================
-   ATUALIZAÇÃO DA CAMPANHA
-   =========================================================
-
-   MUDE SOMENTE ESTE NÚMERO.
-
-   Exemplo:
-
-   118 = 118 kg arrecadados
-
-   250 = 250 kg arrecadados
-
-   500 = 500 kg arrecadados
-
-   1000 = meta atingida
+   DADOS DA CAMPANHA
    ========================================================= */
+
+
+/*
+   ========================================================
+   ALTERE SOMENTE ESTE NÚMERO
+   ========================================================
+
+   Atualmente:
+
+   118 KG
+   ========================================================
+*/
 
 
 const arrecadado = 118;
 
 
+/*
+   META
+*/
+
 const meta = 1000;
 
 
 /* =========================================================
-   CÁLCULO DO PERCENTUAL
+   CALCULA O PERCENTUAL
    ========================================================= */
 
 let percentual =
@@ -521,7 +707,7 @@ let percentual =
 
 
 /*
-   Impede que o gráfico ultrapasse 100%.
+   Limita entre 0 e 100%.
 */
 
 percentual =
@@ -535,7 +721,7 @@ percentual =
 
 
 /* =========================================================
-   LOCALIZA OS ELEMENTOS
+   LOCALIZA ELEMENTOS
    ========================================================= */
 
 const percentualElemento =
@@ -551,17 +737,8 @@ const circulo =
 
 
 /* =========================================================
-   MOSTRA O PERCENTUAL
-   =========================================================
-
-   Exemplo:
-
-   11.8
-
-   vira:
-
-   11,8%
-   */
+   ESCREVE O PERCENTUAL
+   ========================================================= */
 
 percentualElemento.textContent =
 
@@ -569,25 +746,30 @@ percentualElemento.textContent =
         "pt-BR",
         {
             minimumFractionDigits: 1,
+
             maximumFractionDigits: 1
         }
     ) + "%";
 
 
 /* =========================================================
-   PREENCHIMENTO DO CÍRCULO
-   =========================================================
+   CALCULA O ÂNGULO
+   ========================================================= */
 
+
+/*
    100% = 360 graus
 
-   Portanto:
-
    11,8% = 42,48 graus
-   */
+*/
 
 const graus =
     percentual * 3.6;
 
+
+/* =========================================================
+   ATUALIZA O GRÁFICO
+   ========================================================= */
 
 circulo.style.setProperty(
 
@@ -596,6 +778,7 @@ circulo.style.setProperty(
     graus + "deg"
 
 );
+
 
 </script>
 
