@@ -10,816 +10,249 @@
 
 <title>Termômetro de Doação</title>
 
+
 <style>
 
 /* =========================================================
-   PALETA
-   ========================================================= */
-
-:root {
-
-    --verde: #739878;
-    --verde-escuro: #4f7053;
-    --verde-claro: #a9bea3;
-    --verde-palido: #dfe8db;
-
-    --marrom: #59483e;
-    --marrom-claro: #7d6c61;
-
-    --creme: #f7f3eb;
-    --creme-escuro: #e6ddd0;
-
-    --branco: #ffffff;
-}
-
-
-/* =========================================================
-   RESET
+   CONFIGURAÇÃO GERAL
    ========================================================= */
 
 * {
     box-sizing: border-box;
 }
 
+
 html,
 body {
 
+    margin: 0;
+
+    padding: 0;
+
     width: 100%;
+
     height: 100%;
 
-    margin: 0;
-
-}
-
-body {
-
     overflow: hidden;
 
-    background:
-
-        radial-gradient(
-            circle at 8% 15%,
-            rgba(115,152,120,0.12),
-            transparent 18%
-        ),
-
-        radial-gradient(
-            circle at 92% 80%,
-            rgba(115,152,120,0.10),
-            transparent 20%
-        ),
-
-        var(--creme);
-
-    font-family:
-        "Segoe UI",
-        Arial,
-        Helvetica,
-        sans-serif;
-
-    color: var(--marrom);
+    background: #f7f3eb;
 
 }
 
 
 /* =========================================================
-   PAINEL
+   PÁGINA
    ========================================================= */
 
-.painel {
+.pagina {
+
+    position: relative;
 
     width: 100vw;
+
     height: 100vh;
-
-    padding:
-        35px 60px 25px 60px;
-
-    display: grid;
-
-    grid-template-columns: 27% 73%;
-
-    grid-template-rows:
-        24% 61% 15%;
-
-}
-
-
-/* =========================================================
-   DECORAÇÕES
-   ========================================================= */
-
-.patinhas-top {
-
-    position: absolute;
-
-    top: 22px;
-    right: 45px;
-
-    font-size: 34px;
-
-    letter-spacing: 18px;
-
-    opacity: 0.45;
-
-}
-
-.patinhas-bottom {
-
-    position: absolute;
-
-    bottom: 20px;
-    left: 22px;
-
-    font-size: 24px;
-
-    opacity: 0.45;
-
-}
-
-
-/* =========================================================
-   CABEÇALHO
-   ========================================================= */
-
-.cabecalho {
-
-    grid-column: 1 / 3;
-    grid-row: 1;
-
-    padding-left: 27%;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: flex-start;
-
-    padding-top: 5px;
-
-}
-
-
-.titulo {
-
-    margin: 0;
-
-    font-size:
-        clamp(48px, 5.2vw, 82px);
-
-    line-height: 0.92;
-
-    font-weight: 900;
-
-    letter-spacing: 1px;
-
-    color: var(--marrom);
-
-}
-
-
-.titulo span {
-
-    color: var(--verde-escuro);
-
-}
-
-
-.subtitulo {
-
-    margin-top: 12px;
-
-    font-size:
-        clamp(19px, 1.7vw, 29px);
-
-    color: var(--marrom-claro);
-
-}
-
-
-.frase {
-
-    margin-top: 14px;
-
-    width: fit-content;
-
-    padding:
-        10px 26px;
-
-    border-radius: 40px;
-
-    background: var(--verde-escuro);
-
-    color: white;
-
-    font-size:
-        clamp(16px, 1.5vw, 24px);
-
-    font-weight: 700;
-
-}
-
-
-/* =========================================================
-   ÁREA DO TERMÔMETRO
-   ========================================================= */
-
-.area-termometro {
-
-    grid-column: 1;
-    grid-row: 2;
-
-    position: relative;
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-}
-
-
-/* =========================================================
-   META ACIMA DO TERMÔMETRO
-   ========================================================= */
-
-.meta {
-
-    position: absolute;
-
-    top: 0;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    white-space: nowrap;
-
-    text-align: center;
-
-    font-size:
-        clamp(15px, 1.3vw, 21px);
-
-    font-weight: 800;
-
-    color: var(--marrom);
-
-}
-
-
-.meta strong {
-
-    color: var(--verde-escuro);
-
-}
-
-
-/* =========================================================
-   TERMÔMETRO
-   ========================================================= */
-
-.termometro {
-
-    position: relative;
-
-    width:
-        clamp(85px, 7vw, 110px);
-
-    height:
-        80%;
-
-    min-height: 390px;
-
-    max-height: 560px;
-
-    margin-top: 25px;
-
-    background: var(--branco);
-
-    border:
-        7px solid
-        var(--marrom);
-
-    border-radius: 65px;
-
-    box-shadow:
-        0 12px 30px
-        rgba(70,55,45,0.12);
-
-}
-
-
-/* tubo interno */
-
-.tubo {
-
-    position: absolute;
-
-    left: 50%;
-
-    transform: translateX(-50%);
-
-    bottom: 75px;
-
-    width: 34px;
-
-    height: calc(100% - 130px);
-
-    background: var(--creme-escuro);
-
-    border-radius: 30px;
 
     overflow: hidden;
 
 }
 
 
-/* líquido */
+/* =========================================================
+   IMAGEM BASE
+   ========================================================= */
 
-.liquido {
+.imagem-base {
 
     position: absolute;
 
-    left: 0;
-    bottom: 0;
+    inset: 0;
 
-    width: 100%;
+    width: 100vw;
 
-    height: 11.8%;
+    height: 100vh;
 
-    background:
+    display: block;
 
-        linear-gradient(
-            to top,
-            var(--verde-escuro),
-            var(--verde)
-        );
-
-    border-radius:
-        30px 30px 0 0;
-
-    transition:
-        height 1.6s ease;
+    object-fit: fill;
 
 }
 
 
-/* bolinha */
+/* =========================================================
+   GRÁFICO DINÂMICO
+   =========================================================
 
-.bolinha {
+   O gráfico fica exatamente no espaço vazio
+   deixado na arte V5-BASE.
+
+   ========================================================= */
+
+.grafico {
 
     position: absolute;
 
-    left: 50%;
-    bottom: 12px;
+    left: 74.5%;
 
-    transform: translateX(-50%);
+    top: 53.5%;
 
-    width:
-        clamp(78px, 6.5vw, 105px);
+    width: 27vw;
 
-    height:
-        clamp(78px, 6.5vw, 105px);
+    aspect-ratio: 1 / 1;
 
-    border-radius: 50%;
-
-    background:
-
-        radial-gradient(
-            circle at 35% 30%,
-            #91ad91,
-            var(--verde-escuro)
-        );
-
-    border:
-        7px solid
-        var(--marrom);
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size:
-        clamp(26px, 2.4vw, 38px);
+    transform: translate(-50%, -50%);
 
 }
 
 
 /* =========================================================
-   MARCAS DO TERMÔMETRO
+   DONUT
    ========================================================= */
 
-.marca {
+.donut {
 
     position: absolute;
 
-    left:
-        calc(50% + 75px);
-
-    transform: translateY(50%);
-
-    white-space: nowrap;
-
-    font-size:
-        clamp(13px, 1.15vw, 19px);
-
-    font-weight: 800;
-
-    color: var(--marrom);
-
-}
-
-
-.marca::before {
-
-    content: "";
-
-    display: inline-block;
-
-    width: 28px;
-
-    height: 3px;
-
-    margin-right: 9px;
-
-    vertical-align: middle;
-
-    border-radius: 5px;
-
-    background: var(--marrom);
-
-}
-
-
-.marca-1000 {
-    top: 8%;
-}
-
-.marca-750 {
-    top: 28%;
-}
-
-.marca-500 {
-    top: 48%;
-}
-
-.marca-250 {
-    top: 68%;
-}
-
-.marca-0 {
-    top: 88%;
-}
-
-
-/* =========================================================
-   CONTEÚDO PRINCIPAL
-   ========================================================= */
-
-.conteudo {
-
-    grid-column: 2;
-    grid-row: 2;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    padding:
-        0 35px 0 25px;
-
-}
-
-
-/* =========================================================
-   CARD DOS KG
-   ========================================================= */
-
-.card {
-
-    width: 100%;
-
-    min-height: 235px;
-
-    background:
-        rgba(255,255,255,0.86);
-
-    border:
-        2px solid
-        rgba(115,152,120,0.20);
-
-    border-radius: 32px;
-
-    padding:
-        30px 45px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    box-shadow:
-        0 12px 35px
-        rgba(70,55,45,0.08);
-
-}
-
-
-/* =========================================================
-   NÚMERO
-   ========================================================= */
-
-.numero {
-
-    font-size:
-        clamp(85px, 9vw, 150px);
-
-    line-height: 0.82;
-
-    font-weight: 900;
-
-    color: var(--verde-escuro);
-
-}
-
-
-.numero small {
-
-    font-size:
-        clamp(30px, 3vw, 50px);
-
-}
-
-
-.de {
-
-    margin-top: 15px;
-
-    font-size:
-        clamp(21px, 1.8vw, 31px);
-
-    font-weight: 700;
-
-    color: var(--marrom-claro);
-
-}
-
-
-/* =========================================================
-   CÍRCULO
-   ========================================================= */
-
-.circulo {
-
-    width:
-        clamp(145px, 12vw, 190px);
-
-    height:
-        clamp(145px, 12vw, 190px);
+    inset: 0;
 
     border-radius: 50%;
 
     background:
 
         conic-gradient(
-            var(--verde)
-            0deg,
-            var(--verde)
-            42.48deg,
-            var(--creme-escuro)
-            42.48deg
+
+            #004d2d 0deg,
+
+            #004d2d 42.48deg,
+
+            #e7dfd3 42.48deg,
+
+            #e7dfd3 360deg
+
         );
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    position: relative;
 
 }
 
 
-.circulo::after {
+/* =========================================================
+   CENTRO DO DONUT
+   ========================================================= */
+
+.donut::after {
 
     content: "";
 
     position: absolute;
 
-    width: 77%;
-    height: 77%;
+    left: 12%;
+
+    top: 12%;
+
+    width: 76%;
+
+    height: 76%;
 
     border-radius: 50%;
 
-    background: var(--creme);
+    background: #f7f3eb;
+
+}
+
+
+/* =========================================================
+   PERCENTUAL
+   ========================================================= */
+
+.percentual {
+
+    position: absolute;
+
+    z-index: 5;
+
+    left: 50%;
+
+    top: 45%;
+
+    transform:
+        translate(-50%, -50%);
+
+    color: #004d2d;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size: 5.2vw;
+
+    font-weight: 900;
+
+    line-height: 1;
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================================
+   LEGENDA
+   ========================================================= */
+
+.legenda {
+
+    position: absolute;
+
+    z-index: 5;
+
+    left: 50%;
+
+    top: 67%;
+
+    transform:
+        translateX(-50%);
+
+    color: #d85b00;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size: 1.45vw;
+
+    font-weight: 900;
+
+    white-space: nowrap;
+
+}
+
+
+/* =========================================================
+   ANIMAÇÃO
+   ========================================================= */
+
+.donut {
+
+    transition:
+        background 1.5s ease;
 
 }
 
 
 .percentual {
 
-    position: relative;
-
-    z-index: 2;
-
-    text-align: center;
-
-    font-size:
-        clamp(29px, 2.8vw, 46px);
-
-    font-weight: 900;
-
-    color: var(--verde-escuro);
-
-}
-
-
-.percentual small {
-
-    display: block;
-
-    margin-top: 4px;
-
-    font-size:
-        clamp(10px, 0.9vw, 15px);
-
-    color: var(--marrom-claro);
-
-}
-
-
-/* =========================================================
-   FALTAM
-   ========================================================= */
-
-.faltam {
-
-    margin-top: 22px;
-
-    text-align: center;
-
-    font-size:
-        clamp(21px, 2vw, 32px);
-
-    font-weight: 700;
-
-}
-
-
-.faltam strong {
-
-    color: var(--verde-escuro);
-
-}
-
-
-/* =========================================================
-   BARRA DE PROGRESSO
-   ========================================================= */
-
-.progresso {
-
-    margin-top: 20px;
-
-}
-
-
-.linha-fundo {
-
-    width: 100%;
-
-    height: 25px;
-
-    background: var(--creme-escuro);
-
-    border-radius: 30px;
-
-    overflow: hidden;
-
-}
-
-
-.linha {
-
-    width: 11.8%;
-
-    height: 100%;
-
-    background:
-
-        linear-gradient(
-            90deg,
-            var(--verde-escuro),
-            var(--verde)
-        );
-
-    border-radius: 30px;
-
     transition:
-        width 1.5s ease;
+        opacity 0.5s ease;
 
 }
 
 
 /* =========================================================
-   MARCOS
+   SEGURANÇA
    ========================================================= */
 
-.marcos {
+body {
 
-    display: flex;
-
-    justify-content: space-between;
-
-    margin-top: 10px;
-
-}
-
-
-.marco {
-
-    text-align: center;
-
-    font-size:
-        clamp(12px, 1.05vw, 18px);
-
-    font-weight: 700;
-
-    color: var(--marrom-claro);
-
-}
-
-
-.ponto {
-
-    width: 15px;
-
-    height: 15px;
-
-    margin:
-        0 auto 5px;
-
-    border-radius: 50%;
-
-    background: var(--verde-claro);
-
-}
-
-
-/* =========================================================
-   RODAPÉ
-   ========================================================= */
-
-.rodape {
-
-    grid-column: 1 / 3;
-    grid-row: 3;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    padding:
-        0 25px;
-
-}
-
-
-.data {
-
-    padding:
-        13px 25px;
-
-    border-radius: 22px;
-
-    background: var(--verde-escuro);
-
-    color: white;
-
-    font-size:
-        clamp(16px, 1.4vw, 22px);
-
-    font-weight: 700;
-
-}
-
-
-.mensagem-final {
-
-    font-size:
-        clamp(17px, 1.6vw, 25px);
-
-    font-weight: 900;
-
-    color: var(--verde-escuro);
+    user-select: none;
 
 }
 
@@ -828,51 +261,17 @@ body {
    AJUSTE PARA TELAS MENORES
    ========================================================= */
 
-@media (max-width: 1100px) {
+@media (max-width: 900px) {
 
-    body {
-        overflow: auto;
-    }
+    .percentual {
 
-    .painel {
-
-        height: auto;
-
-        min-height: 100vh;
-
-        display: flex;
-
-        flex-direction: column;
-
-        padding: 30px;
+        font-size: 6vw;
 
     }
 
-    .cabecalho {
+    .legenda {
 
-        padding-left: 0;
-
-    }
-
-    .area-termometro {
-
-        display: none;
-
-    }
-
-    .conteudo {
-
-        padding: 20px 0;
-
-    }
-
-    .rodape {
-
-        padding: 20px 0;
-
-        flex-direction: column;
-
-        gap: 15px;
+        font-size: 1.8vw;
 
     }
 
@@ -883,298 +282,58 @@ body {
 </head>
 
 
+
 <body>
 
 
-<!-- DECORAÇÕES -->
-
-<div class="patinhas-top">
-    🐾 🐾 🐾
-</div>
-
-<div class="patinhas-bottom">
-    🐾
-</div>
-
-
-
-<div class="painel">
+<div class="pagina">
 
 
     <!-- =====================================================
-         CABEÇALHO
+         IMAGEM FIXA DA CAMPANHA
          ===================================================== -->
 
-    <header class="cabecalho">
-
-
-        <h1 class="titulo">
-
-            TERMÔMETRO
-
-            <br>
-
-            <span>DE DOAÇÃO</span>
-
-        </h1>
-
-
-        <div class="subtitulo">
-
-            Nossa campanha de arrecadação de ração
-
-        </div>
-
-
-        <div class="frase">
-
-            🐾 Juntos, vamos encher muitos potinhos!
-
-        </div>
-
-
-    </header>
-
+    <img
+        src="V5-BASE.png"
+        class="imagem-base"
+        alt="Termômetro de Doação"
+    >
 
 
     <!-- =====================================================
-         TERMÔMETRO
+         GRÁFICO DINÂMICO
          ===================================================== -->
 
-    <section class="area-termometro">
-
-
-        <div class="meta">
-
-            🎯 META:
-            <strong>1.000 KG</strong>
-
-        </div>
-
-
-        <div class="termometro">
-
-
-            <div class="tubo">
-
-                <div
-                    class="liquido"
-                    id="liquido">
-                </div>
-
-            </div>
-
-
-            <div class="bolinha">
-
-                🐾
-
-            </div>
-
-
-        </div>
-
-
-        <div class="marca marca-1000">
-            1.000 KG · META 🎯
-        </div>
-
-        <div class="marca marca-750">
-            750 KG · 75%
-        </div>
-
-        <div class="marca marca-500">
-            500 KG · 50%
-        </div>
-
-        <div class="marca marca-250">
-            250 KG · 25%
-        </div>
-
-        <div class="marca marca-0">
-            0 KG · INÍCIO
-        </div>
-
-
-    </section>
-
-
-
-    <!-- =====================================================
-         CONTEÚDO
-         ===================================================== -->
-
-    <main class="conteudo">
-
-
-        <div class="card">
-
-
-            <div>
-
-
-                <div
-                    class="numero"
-                    id="kg">
-
-                    118
-
-                    <small>
-                        KG
-                    </small>
-
-                </div>
-
-
-                <div class="de">
-
-                    de 1.000 KG
-
-                </div>
-
-
-            </div>
-
-
-
-            <div
-                class="circulo"
-                id="circulo">
-
-
-                <div class="percentual">
-
-
-                    <span id="percentual">
-
-                        11,8%
-
-                    </span>
-
-
-                    <small>
-
-                        DA NOSSA META
-
-                    </small>
-
-
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-
-        <!-- FALTAM -->
+    <div
+        class="grafico"
+        id="grafico"
+    >
 
         <div
-            class="faltam"
-            id="faltam">
-
-            Faltam
-            <strong>882 KG</strong>
-            para chegarmos à nossa meta!
-
-        </div>
+            class="donut"
+            id="donut"
+        ></div>
 
 
+        <div
+            class="percentual"
+            id="percentual"
+        >
 
-        <!-- BARRA -->
-
-        <div class="progresso">
-
-
-            <div class="linha-fundo">
-
-
-                <div
-                    class="linha"
-                    id="linha">
-                </div>
-
-
-            </div>
-
-
-
-            <div class="marcos">
-
-
-                <div class="marco">
-
-                    <div class="ponto"></div>
-
-                    250 KG
-
-                </div>
-
-
-                <div class="marco">
-
-                    <div class="ponto"></div>
-
-                    500 KG
-
-                </div>
-
-
-                <div class="marco">
-
-                    <div class="ponto"></div>
-
-                    750 KG
-
-                </div>
-
-
-                <div class="marco">
-
-                    <div class="ponto"></div>
-
-                    1.000 KG 🎯
-
-                </div>
-
-
-            </div>
-
+            11,8%
 
         </div>
 
 
-    </main>
+        <div
+            class="legenda"
+        >
 
-
-
-    <!-- =====================================================
-         RODAPÉ
-         ===================================================== -->
-
-    <footer class="rodape">
-
-
-        <div class="data">
-
-            📅 CAMPANHA ATÉ
-            <strong>
-                31/08/2026
-            </strong>
+            DA NOSSA META
 
         </div>
 
-
-        <div class="mensagem-final">
-
-            🐾 CADA QUILO FAZ A DIFERENÇA!
-
-        </div>
-
-
-    </footer>
+    </div>
 
 
 </div>
@@ -1185,39 +344,35 @@ body {
 
 
 /* =========================================================
+   =========================================================
+
    ⭐⭐⭐ ATUALIZE SOMENTE ESTE NÚMERO ⭐⭐⭐
 
-   Hoje temos 118 KG.
-
-   Quando receber novas doações,
-   altere somente o número abaixo.
-
-   Exemplo:
-
-   const kgArrecadados = 250;
+   Quantidade de ração arrecadada:
 
    ========================================================= */
-
 
 const kgArrecadados = 118;
 
 
-
 /* =========================================================
-   NÃO ALTERE NADA ABAIXO
+   META DA CAMPANHA
    ========================================================= */
-
 
 const meta = 1000;
 
 
-/* percentual */
+/* =========================================================
+   CALCULA O PERCENTUAL
+   ========================================================= */
 
 let percentual =
     (kgArrecadados / meta) * 100;
 
 
-/* limite máximo */
+/* =========================================================
+   NÃO DEIXA PASSAR DE 100%
+   ========================================================= */
 
 if (percentual > 100) {
 
@@ -1226,104 +381,54 @@ if (percentual > 100) {
 }
 
 
-/* quantidade restante */
-
-const faltam =
-    Math.max(
-        meta - kgArrecadados,
-        0
-    );
-
-
-
 /* =========================================================
-   KG
+   FORMATA O PERCENTUAL
    ========================================================= */
 
-document.getElementById("kg").innerHTML =
-
-    kgArrecadados.toLocaleString("pt-BR")
-
-    + " <small>KG</small>";
-
-
-
-/* =========================================================
-   PERCENTUAL
-   ========================================================= */
-
-document.getElementById("percentual").textContent =
+const percentualFormatado =
 
     percentual
         .toFixed(1)
-        .replace(".", ",")
-        + "%";
-
+        .replace(".", ",");
 
 
 /* =========================================================
-   TERMÔMETRO
+   COLOCA O PERCENTUAL NA TELA
    ========================================================= */
 
-document.getElementById("liquido").style.height =
-
-    percentual + "%";
-
-
-
-/* =========================================================
-   BARRA
-   ========================================================= */
-
-document.getElementById("linha").style.width =
-
-    percentual + "%";
-
+document
+    .getElementById("percentual")
+    .textContent =
+        percentualFormatado + "%";
 
 
 /* =========================================================
-   CÍRCULO
+   TRANSFORMA O PERCENTUAL EM GRAUS
    ========================================================= */
 
 const graus =
     percentual * 3.6;
 
 
-document.getElementById("circulo").style.background =
-
-    `conic-gradient(
-        #739878 0deg,
-        #739878 ${graus}deg,
-        #e6ddd0 ${graus}deg
-    )`;
-
-
-
 /* =========================================================
-   MENSAGEM
+   ATUALIZA O DONUT
    ========================================================= */
 
-if (faltam > 0) {
+document
+    .getElementById("donut")
+    .style.background =
 
+    `conic-gradient(
 
-    document.getElementById("faltam").innerHTML =
+        #004d2d 0deg,
 
-        "Faltam <strong>" +
+        #004d2d ${graus}deg,
 
-        faltam.toLocaleString("pt-BR") +
+        #e7dfd3 ${graus}deg,
 
-        " KG</strong> para chegarmos à nossa meta!";
+        #e7dfd3 360deg
 
-
-} else {
-
-
-    document.getElementById("faltam").innerHTML =
-
-        "🎉 <strong>META DE 1.000 KG ATINGIDA!</strong> 🎉";
-
-
-}
+    )`;
 
 
 </script>
