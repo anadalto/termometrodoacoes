@@ -10,7 +10,7 @@
     content="width=device-width, initial-scale=1.0"
 >
 
-<title>Termômetro de Doação</title>
+<title>Rumo aos 1.000 KG</title>
 
 
 <style>
@@ -85,7 +85,7 @@ body {
 
     background-position: center center;
 
-    background-size: cover;
+    background-size: 100% 100%;
 }
 
 
@@ -281,11 +281,6 @@ body {
 
     width: 100vw;
 
-    /*
-       IMPORTANTE:
-       A arte vertical será tratada como 9:16.
-    */
-
     aspect-ratio: 9 / 16;
 
     height: auto;
@@ -314,13 +309,6 @@ body {
 
     height: 100%;
 
-    /*
-       Não usamos "cover".
-
-       A arte precisa ocupar exatamente
-       o quadro vertical inteiro.
-    */
-
     object-fit: fill;
 
     display: block;
@@ -332,40 +320,19 @@ body {
 
 
 /* =========================================================
-   GRÁFICO MOBILE — V14
+   GRÁFICO MOBILE
    ========================================================= */
 
 .chart-mobile {
 
     position: absolute;
 
-    /*
-       CENTRO HORIZONTAL
-    */
-
     left: 50%;
-
-
-    /*
-       POSIÇÃO VERTICAL
-
-       O gráfico fica abaixo do título,
-       no espaço livre central da arte.
-    */
 
     top: 57%;
 
-
     transform:
         translate(-50%, -50%);
-
-
-    /*
-       TAMANHO DO GRÁFICO
-
-       Mantemos proporcional à largura
-       do celular.
-    */
 
     width: 43vw;
 
@@ -420,9 +387,9 @@ body {
 
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    FURO DO CÍRCULO MOBILE
-   ========================================================= */
+   --------------------------------------------------------- */
 
 .chart-mobile .chart-ring::after {
 
@@ -446,9 +413,9 @@ body {
 
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    CONTEÚDO MOBILE
-   ========================================================= */
+   --------------------------------------------------------- */
 
 .chart-mobile .chart-content {
 
@@ -472,9 +439,9 @@ body {
 
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    PERCENTUAL MOBILE
-   ========================================================= */
+   --------------------------------------------------------- */
 
 .chart-mobile .chart-percent {
 
@@ -494,9 +461,9 @@ body {
 
 
 
-/* =========================================================
+/* ---------------------------------------------------------
    TEXTO MOBILE
-   ========================================================= */
+   --------------------------------------------------------- */
 
 .chart-mobile .chart-label {
 
@@ -522,21 +489,12 @@ body {
 
 @media (max-width: 768px) {
 
-
-    /*
-       DESKTOP DESLIGADO
-    */
-
     .pagina {
 
         display: none;
 
     }
 
-
-    /*
-       MOBILE LIGADO
-    */
 
     .mobile-page {
 
@@ -553,7 +511,6 @@ body {
    ========================================================= */
 
 @media (min-width: 769px) {
-
 
     .pagina {
 
@@ -578,19 +535,9 @@ body {
 
 @media (max-width: 430px) {
 
-
     .chart-mobile {
 
-        /*
-           Mantém o gráfico proporcional.
-        */
-
         width: 43vw;
-
-        /*
-           Mais abaixo para não encostar
-           no título.
-        */
 
         top: 57%;
 
@@ -679,20 +626,12 @@ body {
 <div class="mobile-page">
 
 
-    <!-- ===================================================
-         ARTE VERTICAL
-         =================================================== -->
-
     <img
         src="V5-CELULAR.png"
         alt="Campanha de doação de ração"
     >
 
 
-
-    <!-- ===================================================
-         GRÁFICO MOBILE
-         =================================================== -->
 
     <div
         class="chart-mobile"
@@ -739,7 +678,29 @@ body {
    ========================================================= */
 
 
+/*
+   ========================================================
+   ALTERE SOMENTE ESTE NÚMERO
+   ========================================================
+
+   Exemplo:
+
+   118 = 11,8%
+   250 = 25,0%
+   500 = 50,0%
+   750 = 75,0%
+
+   Meta:
+   1.000 KG
+*/
+
+
 const META = 1000;
+
+
+/* =========================================================
+   VALOR ATUAL DA ARRECADAÇÃO
+   ========================================================= */
 
 
 let arrecadado = 118;
@@ -747,58 +708,22 @@ let arrecadado = 118;
 
 
 /* =========================================================
-   ATUALIZA GRÁFICOS
+   CONFIGURAÇÃO DA ANIMAÇÃO
    ========================================================= */
 
-function atualizarGrafico() {
+
+const DURACAO_ANIMACAO = 1800;
 
 
-    let percentual =
-        (arrecadado / META) * 100;
+/* =========================================================
+   ATUALIZA OS GRÁFICOS
+   ========================================================= */
 
 
-    /*
-       Nunca ultrapassar 100%.
-    */
-
-    percentual =
-        Math.max(
-            0,
-            Math.min(
-                percentual,
-                100
-            )
-        );
-
-
-    /*
-       Converte percentual
-       para graus.
-    */
-
-    const graus =
-        percentual * 3.6;
-
-
-    /*
-       Formatação brasileira.
-    */
-
-    const percentualTexto =
-
-        percentual.toLocaleString(
-            "pt-BR",
-            {
-                minimumFractionDigits: 1,
-                maximumFractionDigits: 1
-            }
-        ) + "%";
-
-
-
-    /* =====================================================
-       DESKTOP
-       ===================================================== */
+function atualizarGrafico(
+    percentualFinal,
+    animar = true
+) {
 
 
     const circulo =
@@ -813,33 +738,6 @@ function atualizarGrafico() {
         );
 
 
-    if (circulo) {
-
-        circulo.style.setProperty(
-
-            "--progresso",
-
-            graus + "deg"
-
-        );
-
-    }
-
-
-    if (percentualElemento) {
-
-        percentualElemento.textContent =
-            percentualTexto;
-
-    }
-
-
-
-    /* =====================================================
-       MOBILE
-       ===================================================== */
-
-
     const chartMobile =
         document.getElementById(
             "chartMobile"
@@ -852,23 +750,230 @@ function atualizarGrafico() {
         );
 
 
-    if (chartMobile) {
+    /*
+       Se não houver elementos,
+       não faz nada.
+    */
 
-        chartMobile.style.setProperty(
+    if (
+        !circulo &&
+        !chartMobile
+    ) {
 
-            "--progress",
-
-            graus + "deg"
-
-        );
+        return;
 
     }
 
 
-    if (percentMobile) {
 
-        percentMobile.textContent =
-            percentualTexto;
+    /* =====================================================
+       ANIMAÇÃO
+       ===================================================== */
+
+
+    if (animar) {
+
+        const inicio = performance.now();
+
+
+        function animarGrafico(tempoAtual) {
+
+
+            const decorrido =
+                tempoAtual - inicio;
+
+
+            let progressoAnimacao =
+                decorrido / DURACAO_ANIMACAO;
+
+
+            /*
+               Limita entre 0 e 1.
+            */
+
+            progressoAnimacao =
+                Math.max(
+                    0,
+                    Math.min(
+                        progressoAnimacao,
+                        1
+                    )
+                );
+
+
+            /*
+               Easing suave.
+
+               Começa devagar,
+               acelera no meio
+               e termina suavemente.
+            */
+
+            const suavizado =
+                1 -
+                Math.pow(
+                    1 - progressoAnimacao,
+                    3
+                );
+
+
+            const percentualAtual =
+                percentualFinal *
+                suavizado;
+
+
+            const grausAtual =
+                percentualAtual *
+                3.6;
+
+
+            const textoAtual =
+
+                percentualAtual.toLocaleString(
+                    "pt-BR",
+                    {
+                        minimumFractionDigits: 1,
+                        maximumFractionDigits: 1
+                    }
+                ) + "%";
+
+
+            /*
+               DESKTOP
+            */
+
+            if (circulo) {
+
+                circulo.style.setProperty(
+
+                    "--progresso",
+
+                    grausAtual + "deg"
+
+                );
+
+            }
+
+
+            if (percentualElemento) {
+
+                percentualElemento.textContent =
+                    textoAtual;
+
+            }
+
+
+            /*
+               MOBILE
+            */
+
+            if (chartMobile) {
+
+                chartMobile.style.setProperty(
+
+                    "--progress",
+
+                    grausAtual + "deg"
+
+                );
+
+            }
+
+
+            if (percentMobile) {
+
+                percentMobile.textContent =
+                    textoAtual;
+
+            }
+
+
+            /*
+               Continua a animação
+               até chegar ao final.
+            */
+
+            if (
+                progressoAnimacao < 1
+            ) {
+
+                requestAnimationFrame(
+                    animarGrafico
+                );
+
+            }
+
+        }
+
+
+        requestAnimationFrame(
+            animarGrafico
+        );
+
+
+    } else {
+
+
+        /*
+           Atualização instantânea,
+           caso seja necessária.
+        */
+
+        const graus =
+            percentualFinal * 3.6;
+
+
+        const texto =
+
+            percentualFinal.toLocaleString(
+                "pt-BR",
+                {
+                    minimumFractionDigits: 1,
+                    maximumFractionDigits: 1
+                }
+            ) + "%";
+
+
+        if (circulo) {
+
+            circulo.style.setProperty(
+
+                "--progresso",
+
+                graus + "deg"
+
+            );
+
+        }
+
+
+        if (percentualElemento) {
+
+            percentualElemento.textContent =
+                texto;
+
+        }
+
+
+        if (chartMobile) {
+
+            chartMobile.style.setProperty(
+
+                "--progress",
+
+                graus + "deg"
+
+            );
+
+        }
+
+
+        if (percentMobile) {
+
+            percentMobile.textContent =
+                texto;
+
+        }
 
     }
 
@@ -877,10 +982,106 @@ function atualizarGrafico() {
 
 
 /* =========================================================
-   INICIALIZA
+   CALCULA O PERCENTUAL
    ========================================================= */
 
-atualizarGrafico();
+
+function iniciarGrafico() {
+
+
+    let percentual =
+
+        (arrecadado / META) *
+        100;
+
+
+    /*
+       Nunca ultrapassar 100%.
+    */
+
+    percentual =
+
+        Math.max(
+            0,
+            Math.min(
+                percentual,
+                100
+            )
+        );
+
+
+    atualizarGrafico(
+        percentual,
+        true
+    );
+
+}
+
+
+
+/* =========================================================
+   INICIA O GRÁFICO
+   ========================================================= */
+
+
+iniciarGrafico();
+
+
+
+/* =========================================================
+   ATUALIZAÇÃO AUTOMÁTICA DA PÁGINA
+   ========================================================= */
+
+
+/*
+   A página será atualizada automaticamente
+   a cada 5 minutos.
+
+   Isso significa que:
+
+   - você altera o valor no GitHub;
+   - salva;
+   - o computador que está exibindo
+     o termômetro não precisa receber
+     nenhum clique;
+   - no próximo ciclo de atualização,
+     ele recarrega a página;
+   - o novo valor aparece automaticamente.
+
+   5 minutos = 300.000 milissegundos.
+*/
+
+
+const INTERVALO_ATUALIZACAO =
+    5 * 60 * 1000;
+
+
+setTimeout(
+    function atualizarPagina() {
+
+
+        /*
+           Adiciona um parâmetro de tempo
+           para evitar que o navegador
+           use uma versão antiga em cache.
+        */
+
+        const novaUrl =
+
+            window.location.pathname +
+            "?atualizacao=" +
+            Date.now();
+
+
+        window.location.href =
+            novaUrl;
+
+
+    },
+
+    INTERVALO_ATUALIZACAO
+
+);
 
 
 </script>
